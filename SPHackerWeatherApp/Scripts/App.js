@@ -64,7 +64,7 @@ function getQueryStringParameter(urlParameterKey) {
                     time = new Date(weatherObject.currently.time);
                     todayDate = moment.unix(time).format("llll");
                     windBearing = translatewindBearing(weatherObject.currently.windBearing);
-                    windSpeed = (parseFloat(weatherObject.currently.windSpeed) / 2.236936);
+                    windSpeed = parseFloat(weatherObject.currently.windSpeed) / 2.236936;
 
                     body = "<div><h4> " + temperatur.toFixed(1) + "&deg;C " + weatherSummary + "</h4></div>" +
                         "<div><p>Vindriktning: " + windBearing + " Vindhastighet: " + windSpeed.toFixed(0) + " m/s</p></div>";
@@ -242,8 +242,8 @@ function listDailySummaryFahrenheit(result) {
     //loopa igenom forecast för nästkommande dagar börja på värde 1 = imorgon och totalt 5 dagar
     for (var index = 1; index <= 5; index++) {
         var day = moment.unix(weatherForecast[index].time).format("dddd");
-        var minTemp = (parseFloat(weatherForecast[index].temperatureMin));
-        var maxTemp = (parseFloat(weatherForecast[index].temperatureMax));
+        var minTemp = parseFloat(weatherForecast[index].temperatureMin);
+        var maxTemp = parseFloat(weatherForecast[index].temperatureMax);
 
         //variabler för att identifiera element i DOM:n
         var canvas = "forecastCanvas" + index;
