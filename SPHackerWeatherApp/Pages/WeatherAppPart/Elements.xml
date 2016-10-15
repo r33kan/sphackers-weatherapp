@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ClientWebPart Name="WeatherAppPart" Title="Contoso Weather App" Description="Contosos väderapp" DefaultWidth="600" DefaultHeight="600">
+
+    <!-- Content element identifies the location of the page that will render inside the client web part
+         Properties are referenced on the query string using the pattern _propertyName_
+         Example: Src="~appWebUrl/Pages/ClientWebPart1.aspx?Property1=_property1_" -->
+    <Content Type="html" Src="~appWebUrl/Pages/WeatherAppPart.aspx?{StandardTokens}&amp;contosoLocation=_contosoLocation_&amp;contosoDegrees=_contosoDegrees_&amp;contosoTheme=_contosoTheme_" />
+   
+    <!-- Define properties in the Properties element.
+         Remember to put Property Name on the Src attribute of the Content element above. -->
+    <Properties>
+      <Property Name="contosoLocation"
+                Type="enum"
+                RequiresDesignerPermission="true"
+                WebCategory="Location"
+                WebDisplayName="choose your location"
+                DefaultValue="1"
+                >
+        <EnumItems>
+          <EnumItem Value="1" WebDisplayName="Stockholm"/>
+          <EnumItem Value="2" WebDisplayName="Göteborg"/>
+          <EnumItem Value="3" WebDisplayName="Malmö"/>
+        </EnumItems>
+      </Property>
+
+      <Property Name="contosoDegrees"
+                Type="enum"
+                RequiresDesignerPermission="false"
+                WebCategory="Degrees"
+                WebDisplayName="Fahrenheit / Celsius"
+                DefaultValue="1"
+                >
+        <EnumItems>
+          <EnumItem Value="1" WebDisplayName="Fahrenheit"/>
+          <EnumItem Value="2" WebDisplayName="Celsius"/>
+        </EnumItems>
+      </Property>
+
+      <Property Name="contosoTheme"
+                Type="enum"
+                RequiresDesignerPermission="false"
+                WebCategory="Theme"
+                WebDisplayName="choose theme"
+                DefaultValue="1"
+                >
+        <EnumItems>
+          <EnumItem Value="1" WebDisplayName="Light"/>
+          <EnumItem Value="2" WebDisplayName="Dark"/>
+          <EnumItem Value="3" WebDisplayName="SP Blue"/>
+        </EnumItems>
+      </Property>
+      
+    </Properties>
+
+  </ClientWebPart>
+</Elements>

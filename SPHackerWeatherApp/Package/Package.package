@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package dslVersion="1.0.0.0" 
+        Id="76017591-d477-4c4f-a887-0f25349b63b2" 
+        solutionId="76017591-d477-4c4f-a887-0f25349b63b2" 
+        xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel" 
+        name="SPHackerWeatherApp"
+        sharePointProductVersion="16.0">
+  <features>
+        <featureReference itemId="209f08c1-aa8f-482b-a262-2fabf02138eb" />
+  </features>
+</package>

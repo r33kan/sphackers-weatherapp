@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="Images">
+    <File Path="Images\AppIcon.png" Url="Images/AppIcon.png" ReplaceContent="TRUE" />
+    <File Path="Images\weatherIcons\Cloudy.svg" Url="Images/weatherIcons/Cloudy.svg" ReplaceContent="TRUE" />
+    <File Path="Images\weatherIcons\partly-cloudy-day.svg" Url="Images/weatherIcons/partly-cloudy-day.svg" ReplaceContent="TRUE" />
+  </Module>
+</Elements>
