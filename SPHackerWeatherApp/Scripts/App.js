@@ -50,49 +50,6 @@ function getQueryStringParameter(urlParameterKey) {
             if (errorMessage === "") {
                 weatherObject = weatherTemp;
 
-<<<<<<< HEAD
-                var weatherSummary = "";
-                var temperatur = "";
-                var time = "";
-                var todayDate = "";
-                var windBearing = "";
-                var windSpeed = "";
-
-                //konvertera väderdata till Celsius
-                if (unit === "Celsius") {
-                    weatherSummary = weatherObject.currently.summary;
-                    temperatur = (parseFloat(weatherObject.currently.temperature) - 32) / 1.8000;
-                    time = new Date(weatherObject.currently.time);
-                    todayDate = moment.unix(time).format("llll");
-                    windBearing = translatewindBearing(weatherObject.currently.windBearing);
-                    windSpeed = parseFloat(weatherObject.currently.windSpeed) / 2.236936;
-
-                    body = "<div><h4> " + temperatur.toFixed(1) + "&deg;C " + weatherSummary + "</h4></div>" +
-                        "<div><p>Vindriktning: " + windBearing + " Vindhastighet: " + windSpeed.toFixed(0) + " m/s</p></div>";
-
-                    skycons.add(document.getElementById("icon1"), weatherObject.currently.icon);
-                    skycons.add("icon1", weatherObject.currently.icon);
-
-                    header = weatherObject.timezone + " " + moment(weatherObject.currently.time).format("MMM Do YYYY");
-                    listForecast(weatherObject.daily, getUnit);
-                }
-                    //behåll väderdata i Fahrenheit
-                else {
-                    weatherSummary = weatherObject.currently.summary;
-                    temperatur = (parseFloat(weatherObject.currently.temperature));
-                    time = new Date(weatherObject.currently.time);
-                    todayDate = moment.unix(time).format("llll");
-                    windBearing = translatewindBearing(weatherObject.currently.windBearing);
-                    windSpeed = (parseFloat(weatherObject.currently.windSpeed));
-
-                    body = "<div><h4> " + temperatur.toFixed(1) + "&deg;F " + weatherSummary + "</h4></div>" +
-                        "<div><p>Vindriktning: " + windBearing + " Vindhastighet: " + windSpeed.toFixed(0) + " MPH</p></div>";
-                    skycons.add(document.getElementById("icon1"), weatherObject.currently.icon);
-                    skycons.add("icon1", weatherObject.currently.icon);
-                    header = weatherObject.timezone + " " + moment(weatherObject.currently.time).format("MMM Do YYYY");
-                    listForecast(weatherObject.daily, getUnit);
-                }
-=======
                 var time = new Date(weatherObject.currently.time);
                 var todayDate = moment.unix(time).format("llll");
 
@@ -101,7 +58,6 @@ function getQueryStringParameter(urlParameterKey) {
 
                 // hämta forecast för nästkommande 5 dagar
                 listForecast(weatherObject.daily.data, getUnit);
->>>>>>> fdda901... slagit ihop celcius / fahrenheit metoder till en enda metod.
 
                 $("#AppPartHeaderDateDisplay").text(todayDate);
                 $("#AppPartBodySummary").html(body);
@@ -115,9 +71,6 @@ function getQueryStringParameter(urlParameterKey) {
         }
     });
 }());
-
-<<<<<<< HEAD
-=======
 
 function getBody(weatherData, getUnit) {
     getUnit = parseInt(getUnit);
@@ -149,7 +102,6 @@ function getBody(weatherData, getUnit) {
     return body;
 }
 
->>>>>>> fdda901... slagit ihop celcius / fahrenheit metoder till en enda metod.
 function setTheme(input) {
     var theme = parseInt(input);
     var href = "";
@@ -319,13 +271,14 @@ function listForecast(weatherForecast, getUnit) {
     var forecastDay = "";
     var forecastTemp = "";
     var unit = getUnitSymbol(getUnit);
+    var index = "";
     var isCelcius = (getUnit === 1) ? true : false;
     var maxTemp = "";
     var minTemp = "";
 
     // är celsius valt som enhet loopa igenom forecast för nästkommande dagar börja på värde 1 = imorgon och totalt 5 dagar fram
     if (isCelcius) {
-        for (var index = 1; index <= 5; index++) {
+        for (index = 1; index <= 5; index++) {
            day = moment.unix(weatherForecast[index].time).format("dddd");
             minTemp = (parseFloat(weatherForecast[index].temperatureMin) - 32) / 1.8000;
             maxTemp = (parseFloat(weatherForecast[index].temperatureMax) - 32) / 1.8000;
@@ -343,7 +296,7 @@ function listForecast(weatherForecast, getUnit) {
     }
         // om Fahrenheit är valt som enhet loopa igenom forecast för nästkommande dagar börja på värde 1 = imorgon och totalt 5 dagar fram
     else {
-        for (var index = 1; index <= 5; index++) {
+        for (index = 1; index <= 5; index++) {
             day = moment.unix(weatherForecast[index].time).format("dddd");
             minTemp = parseFloat(weatherForecast[index].temperatureMin);
             maxTemp = parseFloat(weatherForecast[index].temperatureMax);
