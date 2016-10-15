@@ -68,14 +68,14 @@ function getQueryStringParameter(urlParameterKey) {
 
                     body = "<div><h4> " + temperatur.toFixed(1) + "&deg;C " + weatherSummary + "</h4></div>" +
                         "<div><p>Vindriktning: " + windBearing + " Vindhastighet: " + windSpeed.toFixed(0) + " m/s</p></div>";
-                    
+
                     skycons.add(document.getElementById("icon1"), weatherObject.currently.icon);
                     skycons.add("icon1", weatherObject.currently.icon);
 
                     header = weatherObject.timezone + " " + moment(weatherObject.currently.time).format("MMM Do YYYY");
                     listDailySummaryCelsius(weatherObject.daily);
                 }
-                //behåll väderdata i Fahrenheit
+                    //behåll väderdata i Fahrenheit
                 else {
                     weatherSummary = weatherObject.currently.summary;
                     temperatur = (parseFloat(weatherObject.currently.temperature));
@@ -110,8 +110,7 @@ function setTheme(input) {
     var href = "";
 
     switch (theme) {
-        case 1:
-
+        case 1: {
             href = "../Content/App.css";
             skycons = iconSetting = new Skycons({ "color": "black" });
 
@@ -119,7 +118,9 @@ function setTheme(input) {
                 return href;
             });
             break;
-        case 2:
+        }
+        case 2: {
+
             href = "../Content/darkTheme.css";
             skycons = iconSetting = new Skycons({ "color": "tomato" });
 
@@ -127,7 +128,8 @@ function setTheme(input) {
                 return href;
             });
             break;
-        case 3:
+        }
+        case 3: {
             href = "../Content/spBlue.css";
             skycons = iconSetting = new Skycons({ "color": "white" });
 
@@ -135,6 +137,7 @@ function setTheme(input) {
                 return href;
             });
             break;
+        }
     }
 }
 //sätter unit till celsius /fahrenheit
@@ -142,12 +145,14 @@ function setUnitType(setting) {
     var temp = parseInt(setting);
     var unit = "";
     switch (temp) {
-        case 1:
+        case 1: {
             unit = "Fahrenheit";
             break;
-        case 2:
+        }
+        case 2: {
             unit = "Celsius";
             break;
+        }
     }
 
     return unit;
@@ -176,24 +181,25 @@ function setLocation(location) {
     console.log(location);
     var position = "";
     switch (locationInt) {
-
-        case 1:
+        case 1: {
             position = "https://api.darksky.net/forecast/629b0a384ddac75d1c1fa827e8846375/" + city.Stockholm.latitude + "," + city.Stockholm.longitude;
             $("#cityLocation").text("Stockholm");
             console.log("Stockholm");
-           break;
-        case 2:
+            break;
+        }
+        case 2: {
             position = "https://api.darksky.net/forecast/629b0a384ddac75d1c1fa827e8846375/" + city.Gothemburg.latitude + "," + city.Gothemburg.longitude;
             $("#cityLocation").text("Göteborg");
             console.log("Göteborg");
             break;
-        case 3:
+        }
+        case 3: {
             position = "https://api.darksky.net/forecast/629b0a384ddac75d1c1fa827e8846375/" + city.Malmo.latitude + "," + city.Malmo.longitude;
             $("#cityLocation").text("Malmö");
             console.log("Malmö");
             break;
+        }
     }
-
     return position;
 }
 
@@ -203,37 +209,60 @@ function translatewindBearing(input) {
     "use strict";
     var value = parseFloat(input);
 
-    if (value === 0) {
-        return "nordlig";
-    }
-    else if (value > 0 && value < 45) {
-        return "nord / nordost";
-    }
-    else if (value > 45 && value < 90) {
-        return "ost / nordost";
-    }
-    else if (value === 90) {
-        return "ost";
-    }
-    else if (value > 90 && value < 180) {
-        return "syd / sydost";
-    }
-    else if (value === 180) {
-        return "sydlig";
-    }
-    else if (value > 180 && value < 270) {
-        return "syd / sydväst";
-    }
-    else if (value === 270) {
-        return "västlig";
-    }
-    else if (value > 270 && value < 360) {
-        return "nord / nordväst";
-    }
-    else {
-        return "vindstilla";
+    switch (value) {
+        case 0: { return "nordlig"; }
+        case value > 0 && value < 45: { return "nord / nordost"; }
+        case value > 45 && value < 90: { return "ost / nordost"; }
+        case 90: { return "ost"; }
+        case value > 90 && value < 180: { return "syd / sydost"; }
+        case 180: { return "sydlig"; }
+        case value > 180 && value < 270: { return "syd / sydväst"; }
+        case 270: { return "västlig"; }
+        case value > 270 && value < 360: { return "nord / nordväst"; }
+        default: { return "vindstilla"; }
     }
 }
+//    if (value === 0)
+//    {
+//        return "nordlig";
+//    }
+//    else if (value > 0 && value < 45)
+//    {
+//        return "nord / nordost";
+//    }
+//    else if (value > 45 && value < 90)
+//    {
+//        return "ost / nordost";
+//    }
+//    else if (value === 90)
+//    {
+//        return "ost";
+//    }
+//    else if (value > 90 && value < 180)
+//    {
+//        return "syd / sydost";
+//    }
+//    else if (value === 180)
+//    {
+//        return "sydlig";
+//    }
+//    else if (value > 180 && value < 270)
+//    {
+//        return "syd / sydväst";
+//    }
+//    else if (value === 270)
+//    {
+//        return "västlig";
+//    }
+//    else if (value > 270 && value < 360)
+//    {
+//        return "nord / nordväst";
+//    }
+//    else
+//    {
+//        return "vindstilla";
+//    }
+//}
 
 //Forecast med Fahrenheit
 function listDailySummaryFahrenheit(result) {
@@ -266,7 +295,7 @@ function listDailySummaryCelsius(result) {
         var day = moment.unix(weatherForecast[index].time).format("dddd");
         var minTemp = (parseFloat(weatherForecast[index].temperatureMin) - 32) / 1.8000;
         var maxTemp = (parseFloat(weatherForecast[index].temperatureMax) - 32) / 1.8000;
-        
+
         //variabler för att identifiera element i DOM:n
         var canvas = "forecastCanvas" + index;
         var forecastDay = "#forecastDay" + index;
@@ -276,5 +305,5 @@ function listDailySummaryCelsius(result) {
         $(forecastDay).html(day);
         skycons.add(document.getElementById(canvas), weatherForecast[index].icon);
         $(forecastTemp).html("<p> " + minTemp.toFixed(0) + " - " + maxTemp.toFixed(0) + " &deg;C</p>");
-    } 
+    }
 }

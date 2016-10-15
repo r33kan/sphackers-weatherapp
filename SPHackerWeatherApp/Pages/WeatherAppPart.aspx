@@ -36,7 +36,7 @@
             </div>
             <div id="AppPartHeaderDetails" class="col-sm-4 info">
                 <p id="AppPartHeaderDetailsLink">
-                    <a href="Default.aspx" class="info-link">Detaljer</a>
+                    <a href="Default.aspx" class="btn btn-primary info-link">Detaljer</a>
                 </p>
             </div>
         </div>
@@ -87,11 +87,11 @@
     </div>
 
     <%--custom tema-css--%>
-<%--    <div id="cssTheme">
+    <%--    <div id="cssTheme">
         <link id="cssTheme" href="../Content/App.css" rel="stylesheet" />
     </div>--%>
-    
-    
+
+
     <%--Egen javascript--%>
     <script src="../Scripts/App.js"></script>
 </body>
