@@ -1,7 +1,7 @@
 ﻿//Mattias key
-//var secretKey = "629b0a384ddac75d1c1fa827e8846375";
+var secretKey = "629b0a384ddac75d1c1fa827e8846375/";
 //Johans key
-var secretKey = "1d2a1962f482ae789c15b56b59b526d7";
+//var secretKey = "1d2a1962f482ae789c15b56b59b526d7";
 var iconColor = "black";
 var skycons = new Skycons({ "color": iconColor });
 
@@ -27,8 +27,8 @@ function getQueryStringParameter(urlParameterKey) {
     var errorMessage = "";
     var getWeather = setLocation(getLocation);
     var header = "";
-    var unit = setUnitType(getUnit);
-    console.log(unitSymbol);
+    //var unit = setUnitType(getUnit);
+
     var weatherObject = {};
     var weatherTemp = "";
     setTheme(getTheme);
@@ -43,7 +43,6 @@ function getQueryStringParameter(urlParameterKey) {
         },
         failure: function () {
             errorMessage = "Det gick inte att hämta väderuppgifterna just nu. Vänligen försök senare";
-            console.log(errorMessage);
         },
         complete: function () {
 
@@ -147,23 +146,40 @@ function setTheme(input) {
 }
 
 //sätter unit till celsius /fahrenheit
-function setUnitType(setting) {
-    var temp = parseInt(setting);
-    var unit = "";
-    switch (temp) {
-        case 1: {
-            unit = "Celsius";
+//function setUnitType(setting) {
+//    var temp = parseInt(setting);
+//    var unit = "";
+//    switch (temp) {
+//        case 1: {
+//            unit = "Celsius";
+//            break;
+//        }
+//        case 2: {
+//            unit = "Fahrenheit";
+//            break;
+//        }
+//    }
+
+//    return unit;
+//}
+
+// sätt enhet till C / F
+function getUnitSymbol(unit) {
+    unit = parseInt(unit);
+
+    var symbol = "";
+
+    switch (unit) {
+        case 1:
+            symbol = "&deg;C";
             break;
-        }
-        case 2: {
-            unit = "Fahrenheit";
+        case 2:
+            symbol = "&deg;F";
             break;
-        }
     }
 
-    return unit;
+    return symbol;
 }
-
 function getWindSpeedUnit(unit) {
 
     unit = parseInt(unit);
@@ -181,88 +197,7 @@ function getWindSpeedUnit(unit) {
     return symbol;
 }
 
-function getUnitSymbol(unit) {
-    unit = parseInt(unit);
-
-    var symbol = "";
-
-    switch (unit) {
-        case 1:
-            symbol = "&deg;C";
-            break;
-        case 2:
-            symbol = "&deg;F";
-            break;
-    }
-
-    return symbol;
-}
-
-//sätt vilken stad som väderdata ska hämtas för
-function setLocation(location) {
-    var city = {
-        Stockholm: {
-            longitude: "18.00",
-            latitude: "59.00"
-        },
-        Gothemburg: {
-            longitude: "11.97",
-            latitude: "57.7"
-        },
-        Malmo: {
-            longitude: "13",
-            latitude: "55.6"
-        }
-    };
-    var locationInt = parseInt(location);
-
-    console.log("setLocation");
-    console.log(location);
-    var forecastURL = "https://api.darksky.net/forecast/629b0a384ddac75d1c1fa827e8846375/";
-    var position = "";
-    switch (locationInt) {
-        case 1: {
-            position = forecastURL + city.Stockholm.latitude + "," + city.Stockholm.longitude;
-            $("#cityLocation").text("Stockholm");
-            console.log("Stockholm");
-            break;
-        }
-        case 2: {
-            position = forecastURL + city.Gothemburg.latitude + "," + city.Gothemburg.longitude;
-            $("#cityLocation").text("Göteborg");
-            console.log("Göteborg");
-            break;
-        }
-        case 3: {
-            position = forecastURL + city.Malmo.latitude + "," + city.Malmo.longitude;
-            $("#cityLocation").text("Malmö");
-            console.log("Malmö");
-            break;
-        }
-    }
-
-    return position;
-}
-
-//översätt vindriktning
-function translatewindBearing(input) {
-    "use strict";
-    var value = parseFloat(input);
-
-    switch (value) {
-        case 0: { return "nordlig"; }
-        case value > 0 && value < 45: { return "nord / nordost"; }
-        case value > 45 && value < 90: { return "ost / nordost"; }
-        case 90: { return "östlig"; }
-        case value > 90 && value < 180: { return "syd / sydost"; }
-        case 180: { return "sydlig"; }
-        case value > 180 && value < 270: { return "syd / sydväst"; }
-        case 270: { return "västlig"; }
-        case value > 270 && value < 360: { return "nord / nordväst"; }
-        default: { return "vindstilla"; }
-    }
-}
-
+// hämta väderrapport för kommande dagar
 function listForecast(weatherForecast, getUnit) {
     getUnit = parseInt(getUnit);
 
@@ -279,7 +214,7 @@ function listForecast(weatherForecast, getUnit) {
     // är celsius valt som enhet loopa igenom forecast för nästkommande dagar börja på värde 1 = imorgon och totalt 5 dagar fram
     if (isCelcius) {
         for (index = 1; index <= 5; index++) {
-           day = moment.unix(weatherForecast[index].time).format("dddd");
+            day = moment.unix(weatherForecast[index].time).format("dddd");
             minTemp = (parseFloat(weatherForecast[index].temperatureMin) - 32) / 1.8000;
             maxTemp = (parseFloat(weatherForecast[index].temperatureMax) - 32) / 1.8000;
 
@@ -313,3 +248,65 @@ function listForecast(weatherForecast, getUnit) {
         }
     }
 }
+
+
+//sätt vilken stad som väderdata ska hämtas för
+function setLocation(location) {
+    var city = {
+        Stockholm: {
+            longitude: "18.00",
+            latitude: "59.00"
+        },
+        Gothemburg: {
+            longitude: "11.97",
+            latitude: "57.7"
+        },
+        Malmo: {
+            longitude: "13",
+            latitude: "55.6"
+        }
+    };
+    var locationInt = parseInt(location);
+
+    var forecastURL = "https://api.darksky.net/forecast/" + secretKey;
+    var position = "";
+    switch (locationInt) {
+        case 1: {
+            position = forecastURL + city.Stockholm.latitude + "," + city.Stockholm.longitude;
+            $("#cityLocation").text("Stockholm");
+            break;
+        }
+        case 2: {
+            position = forecastURL + city.Gothemburg.latitude + "," + city.Gothemburg.longitude;
+            $("#cityLocation").text("Göteborg");
+            break;
+        }
+        case 3: {
+            position = forecastURL + city.Malmo.latitude + "," + city.Malmo.longitude;
+            $("#cityLocation").text("Malmö");
+            break;
+        }
+    }
+
+    return position;
+}
+
+//översätt vindriktning
+function translatewindBearing(input) {
+    "use strict";
+    var value = parseFloat(input);
+
+    switch (value) {
+        case 0: { return "nordlig"; }
+        case value > 0 && value < 45: { return "nord / nordost"; }
+        case value > 45 && value < 90: { return "ost / nordost"; }
+        case 90: { return "östlig"; }
+        case value > 90 && value < 180: { return "syd / sydost"; }
+        case 180: { return "sydlig"; }
+        case value > 180 && value < 270: { return "syd / sydväst"; }
+        case 270: { return "västlig"; }
+        case value > 270 && value < 360: { return "nord / nordväst"; }
+        default: { return "vindstilla"; }
+    }
+}
+
