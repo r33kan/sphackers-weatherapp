@@ -27,8 +27,6 @@ function getQueryStringParameter(urlParameterKey) {
     var errorMessage = "";
     var getWeather = setLocation(getLocation);
     var header = "";
-    //var unit = setUnitType(getUnit);
-
     var weatherObject = {};
     var weatherTemp = "";
     setTheme(getTheme);
@@ -144,24 +142,6 @@ function setTheme(input) {
         }
     }
 }
-
-//sätter unit till celsius /fahrenheit
-//function setUnitType(setting) {
-//    var temp = parseInt(setting);
-//    var unit = "";
-//    switch (temp) {
-//        case 1: {
-//            unit = "Celsius";
-//            break;
-//        }
-//        case 2: {
-//            unit = "Fahrenheit";
-//            break;
-//        }
-//    }
-
-//    return unit;
-//}
 
 // sätt enhet till C / F
 function getUnitSymbol(unit) {
