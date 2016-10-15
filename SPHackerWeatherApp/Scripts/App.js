@@ -112,8 +112,17 @@ function setTheme(input) {
     var href = "";
 
     switch (theme) {
+        default: {
+            href = "#";
+            skycons = iconSetting = new Skycons({ "color": "black" });
+
+            $("#cssTheme").attr("href", function () {
+                return href;
+            });
+            break;
+        }
         case 1: {
-            href = "../Content/App.css";
+            href = "../Content/lightTheme.css";
             skycons = iconSetting = new Skycons({ "color": "black" });
 
             $("#cssTheme").attr("href", function () {
