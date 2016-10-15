@@ -326,14 +326,14 @@ function listForecast(weatherForecast, getUnit) {
     // är celsius valt som enhet loopa igenom forecast för nästkommande dagar börja på värde 1 = imorgon och totalt 5 dagar fram
     if (isCelcius) {
         for (var index = 1; index <= 5; index++) {
-            var day = moment.unix(weatherForecast[index].time).format("dddd");
-            var minTemp = (parseFloat(weatherForecast[index].temperatureMin) - 32) / 1.8000;
-            var maxTemp = (parseFloat(weatherForecast[index].temperatureMax) - 32) / 1.8000;
+           day = moment.unix(weatherForecast[index].time).format("dddd");
+            minTemp = (parseFloat(weatherForecast[index].temperatureMin) - 32) / 1.8000;
+            maxTemp = (parseFloat(weatherForecast[index].temperatureMax) - 32) / 1.8000;
 
             //variabler för att identifiera element i DOM:n
-            var canvas = "forecastCanvas" + index;
-            var forecastDay = "#forecastDay" + index;
-            var forecastTemp = "#forecastTemp" + index;
+            canvas = "forecastCanvas" + index;
+            forecastDay = "#forecastDay" + index;
+            forecastTemp = "#forecastTemp" + index;
 
             //populera HTML-element med korrekt data
             $(forecastDay).html(day);
@@ -344,14 +344,14 @@ function listForecast(weatherForecast, getUnit) {
         // om Fahrenheit är valt som enhet loopa igenom forecast för nästkommande dagar börja på värde 1 = imorgon och totalt 5 dagar fram
     else {
         for (var index = 1; index <= 5; index++) {
-            var day = moment.unix(weatherForecast[index].time).format("dddd");
-            var minTemp = parseFloat(weatherForecast[index].temperatureMin);
-            var maxTemp = parseFloat(weatherForecast[index].temperatureMax);
+            day = moment.unix(weatherForecast[index].time).format("dddd");
+            minTemp = parseFloat(weatherForecast[index].temperatureMin);
+            maxTemp = parseFloat(weatherForecast[index].temperatureMax);
 
             //variabler för att identifiera element i DOM:n
-            var canvas = "forecastCanvas" + index;
-            var forecastDay = "#forecastDay" + index;
-            var forecastTemp = "#forecastTemp" + index;
+            canvas = "forecastCanvas" + index;
+            forecastDay = "#forecastDay" + index;
+            forecastTemp = "#forecastTemp" + index;
 
             //populera HTML-element med korrekt data
             $(forecastDay).html(day);
