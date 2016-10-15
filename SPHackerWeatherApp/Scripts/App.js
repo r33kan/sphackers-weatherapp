@@ -22,10 +22,12 @@ function getQueryStringParameter(urlParameterKey) {
     var getTheme = getQueryStringParameter("contosoTheme");
     console.log(getUnit);
 
+
     var body = "";
     var errorMessage = "";
     var getWeather = setLocation(getLocation);
     var header = "";
+    var unitSymbol = "";
     var unit = setUnitType(getUnit);
     var weatherObject = {};
     var weatherTemp = "";
@@ -73,7 +75,7 @@ function getQueryStringParameter(urlParameterKey) {
                     skycons.add("icon1", weatherObject.currently.icon);
 
                     header = weatherObject.timezone + " " + moment(weatherObject.currently.time).format("MMM Do YYYY");
-                    listDailySummaryCelsius(weatherObject.daily);
+                    listForecast(weatherObject.daily, getUnit);
                 }
                 //behåll väderdata i Fahrenheit
                 else {
@@ -89,7 +91,7 @@ function getQueryStringParameter(urlParameterKey) {
                     skycons.add(document.getElementById("icon1"), weatherObject.currently.icon);
                     skycons.add("icon1", weatherObject.currently.icon);
                     header = weatherObject.timezone + " " + moment(weatherObject.currently.time).format("MMM Do YYYY");
-                    listDailySummaryFahrenheit(weatherObject.daily);
+                    listForecast(weatherObject.daily, getUnit);
                 }
 
                 $("#AppPartHeaderDateDisplay").text(todayDate);
@@ -137,16 +139,19 @@ function setTheme(input) {
             break;
     }
 }
+
 //sätter unit till celsius /fahrenheit
 function setUnitType(setting) {
     var temp = parseInt(setting);
     var unit = "";
     switch (temp) {
         case 1:
-            unit = "Fahrenheit";
+            unit = "Celsius";
+            unitSymbol = "&deg;C";
             break;
         case 2:
-            unit = "Celsius";
+            unit = "Fahrenheit";
+            unitSymbol = "&deg;F";
             break;
     }
 
@@ -240,21 +245,7 @@ function listDailySummaryFahrenheit(result) {
     var weatherForecast = result.data;
 
     //loopa igenom forecast för nästkommande dagar börja på värde 1 = imorgon och totalt 5 dagar
-    for (var index = 1; index <= 5; index++) {
-        var day = moment.unix(weatherForecast[index].time).format("dddd");
-        var minTemp = parseFloat(weatherForecast[index].temperatureMin);
-        var maxTemp = parseFloat(weatherForecast[index].temperatureMax);
 
-        //variabler för att identifiera element i DOM:n
-        var canvas = "forecastCanvas" + index;
-        var forecastDay = "#forecastDay" + index;
-        var forecastTemp = "#forecastTemp" + index;
-
-        //populera HTML-element med korrekt data
-        $(forecastDay).html(day);
-        skycons.add(document.getElementById(canvas), weatherForecast[index].icon);
-        $(forecastTemp).html("<p> " + minTemp.toFixed(0) + " - " + maxTemp.toFixed(0) + " &deg;F</p>");
-    }
 }
 
 //Forecast med celsius
@@ -275,6 +266,52 @@ function listDailySummaryCelsius(result) {
         //populera HTML-element med korrekt data
         $(forecastDay).html(day);
         skycons.add(document.getElementById(canvas), weatherForecast[index].icon);
-        $(forecastTemp).html("<p> " + minTemp.toFixed(0) + " - " + maxTemp.toFixed(0) + " &deg;C</p>");
+        $(forecastTemp).html("<p> " + minTemp.toFixed(0) + " - " + maxTemp.toFixed(0) + "" + unitSymbol + "</p>");
     } 
+}
+
+function listForecast(result, getUnit) {
+    var weatherForecast = result.data;
+
+    var isCelcius = getUnit;
+
+    // är celsius valt som enhet loopa igenom forecast för nästkommande dagar börja på värde 1 = imorgon och totalt 5 dagar fram
+    if (isCelcius) {
+        //
+        for (var index = 1; index <= 5; index++) {
+            var day = moment.unix(weatherForecast[index].time).format("dddd");
+            var minTemp = (parseFloat(weatherForecast[index].temperatureMin) - 32) / 1.8000;
+            var maxTemp = (parseFloat(weatherForecast[index].temperatureMax) - 32) / 1.8000;
+
+            //variabler för att identifiera element i DOM:n
+            var canvas = "forecastCanvas" + index;
+            var forecastDay = "#forecastDay" + index;
+            var forecastTemp = "#forecastTemp" + index;
+
+            //populera HTML-element med korrekt data
+            $(forecastDay).html(day);
+            skycons.add(document.getElementById(canvas), weatherForecast[index].icon);
+            $(forecastTemp).html("<p> " + minTemp.toFixed(0) + " - " + maxTemp.toFixed(0) + "" + unitSymbol + "</p>");
+        }
+    }
+        // om Fahrenheit är valt som enhet loopa igenom forecast för nästkommande dagar börja på värde 1 = imorgon och totalt 5 dagar fram
+    else {
+        for (var index = 1; index <= 5; index++) {
+            var day = moment.unix(weatherForecast[index].time).format("dddd");
+            var minTemp = parseFloat(weatherForecast[index].temperatureMin);
+            var maxTemp = parseFloat(weatherForecast[index].temperatureMax);
+
+            //variabler för att identifiera element i DOM:n
+            var canvas = "forecastCanvas" + index;
+            var forecastDay = "#forecastDay" + index;
+            var forecastTemp = "#forecastTemp" + index;
+
+            //populera HTML-element med korrekt data
+            $(forecastDay).html(day);
+            skycons.add(document.getElementById(canvas), weatherForecast[index].icon);
+            $(forecastTemp).html("<p> " + minTemp.toFixed(0) + " - " + maxTemp.toFixed(0) + "" + unitSymbol + "</p>");
+        }
+    }
+   
+    
 }

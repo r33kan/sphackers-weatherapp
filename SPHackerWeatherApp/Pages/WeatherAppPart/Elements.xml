@@ -14,7 +14,7 @@
                 Type="enum"
                 RequiresDesignerPermission="true"
                 WebCategory="Location"
-                WebDisplayName="choose your location"
+                WebDisplayName="välj plats för väderrapport"
                 DefaultValue="1"
                 >
         <EnumItems>
@@ -28,12 +28,12 @@
                 Type="enum"
                 RequiresDesignerPermission="false"
                 WebCategory="Degrees"
-                WebDisplayName="Fahrenheit / Celsius"
+                WebDisplayName="välj mellan Celsius / Fahrenheit "
                 DefaultValue="1"
                 >
         <EnumItems>
-          <EnumItem Value="1" WebDisplayName="Fahrenheit"/>
-          <EnumItem Value="2" WebDisplayName="Celsius"/>
+          <EnumItem Value="1" WebDisplayName="Celsius"/>
+          <EnumItem Value="2" WebDisplayName="Fahrenheit"/>
         </EnumItems>
       </Property>
 
@@ -41,7 +41,7 @@
                 Type="enum"
                 RequiresDesignerPermission="false"
                 WebCategory="Theme"
-                WebDisplayName="choose theme"
+                WebDisplayName="välj tema"
                 DefaultValue="1"
                 >
         <EnumItems>
