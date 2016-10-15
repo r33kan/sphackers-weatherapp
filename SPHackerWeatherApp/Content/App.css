@@ -1,4 +1,8 @@
 ﻿/* Place custom styles below */
+#AppPartHeader{
+    color: black;
+    background-color: darkgray;
+}
 
 #weatherIcon {
     width: 300px;
