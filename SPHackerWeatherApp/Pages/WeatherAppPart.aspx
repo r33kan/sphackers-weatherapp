@@ -23,7 +23,8 @@
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
 
     <%--egen CSS--%>
-    <link id="cssTheme" href="../Content/App.css" rel="stylesheet" />
+    <link href="../Content/App.css" rel="stylesheet" />
+    <link id="cssTheme" href="#" rel="stylesheet" />
 </head>
 <body>
     <div id="AppPartContent" class="container main">
@@ -35,9 +36,7 @@
                 <p id="AppPartHeaderDateDisplay">Datum</p>
             </div>
             <div id="AppPartHeaderDetails" class="col-sm-4 info">
-                <p id="AppPartHeaderDetailsLink">
-                    <a href="Default.aspx" class="info-link">Detaljer</a>
-                </p>
+                <a href="Default.aspx" id="AppPartHeaderDetailsLink" class="btn btn-primary btn-lg">Detaljer</a>
             </div>
         </div>
 
@@ -87,11 +86,11 @@
     </div>
 
     <%--custom tema-css--%>
-<%--    <div id="cssTheme">
+    <%--    <div id="cssTheme">
         <link id="cssTheme" href="../Content/App.css" rel="stylesheet" />
     </div>--%>
-    
-    
+
+
     <%--Egen javascript--%>
     <script src="../Scripts/App.js"></script>
 </body>

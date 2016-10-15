@@ -5,3 +5,7 @@
 /// <reference path="~/_layouts/15/SP.Runtime.js" />
 /// <reference path="~/_layouts/15/SP.UI.Dialog.js" />
 /// <reference path="~/_layouts/15/SP.js" />
+/// <reference path="bootstrap.js" />
+/// <reference path="moment-with-locales.js" />
+/// <reference path="moment.js" />
+/// <reference path="skycons.js" />

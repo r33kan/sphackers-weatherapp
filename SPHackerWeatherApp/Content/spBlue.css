@@ -2,21 +2,3 @@
     background-color: #0072c6;
     color: white;
 }
-
-#weatherIcon {
-    width: 300px;
-    height: 100px;
-}
-
-.forcastImg {
-    width: 66px;
-    height: 46px;
-}
-
-.forcast {
-    display: inline-block;
-}
-
-#AppPartBody {
-    text-align: center;
-}

@@ -13,5 +13,6 @@
     <ProjectItemFile Source="bootstrap-theme.css" Target="Content\" Type="ElementFile" />
     <ProjectItemFile Source="darkTheme.css" Target="Content\" Type="ElementFile" />
     <ProjectItemFile Source="spBlue.css" Target="Content\" Type="ElementFile" />
+    <ProjectItemFile Source="lightTheme.css" Target="Content\" Type="ElementFile" />
   </Files>
 </ProjectItem>

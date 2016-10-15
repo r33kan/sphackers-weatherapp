@@ -1,4 +1,9 @@
 ﻿/* Place custom styles below */
+#AppPartHeader{
+    color: black;
+    background-color: darkgray;
+    text-align:left;
+}
 
 #weatherIcon {
     width: 300px;
@@ -12,8 +17,18 @@
 
 .forcast {
     display: inline-block;
+    padding:5px 5px 0 5px;
 }
 
-#AppPartBody {
+#AppPartContent {
     text-align: center;
+}
+
+#AppPartFooter{
+    margin-top: 20px;
+}
+
+#AppPartFooter>*{
+    border: 2px solid black;
+    border-radius:5px;
 }

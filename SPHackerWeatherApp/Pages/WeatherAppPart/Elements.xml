@@ -42,9 +42,10 @@
                 RequiresDesignerPermission="false"
                 WebCategory="Theme"
                 WebDisplayName="välj tema"
-                DefaultValue="1"
+                DefaultValue="0"
                 >
         <EnumItems>
+          <EnumItem Value="0" WebDisplayName="Default"/>
           <EnumItem Value="1" WebDisplayName="Light"/>
           <EnumItem Value="2" WebDisplayName="Dark"/>
           <EnumItem Value="3" WebDisplayName="SP Blue"/>

@@ -12,5 +12,6 @@
     <File Path="Content\bootstrap-theme.css" Url="Content/bootstrap-theme.css" ReplaceContent="TRUE" />
     <File Path="Content\darkTheme.css" Url="Content/darkTheme.css" ReplaceContent="TRUE" />
     <File Path="Content\spBlue.css" Url="Content/spBlue.css" ReplaceContent="TRUE" />
+    <File Path="Content\lightTheme.css" Url="Content/lightTheme.css" ReplaceContent="TRUE" />
   </Module>
 </Elements>
