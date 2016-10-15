@@ -1,5 +1,7 @@
-﻿var secretKey = "629b0a384ddac75d1c1fa827e8846375";
-var secretKey = "";
+﻿//Mattias key
+//var secretKey = "629b0a384ddac75d1c1fa827e8846375";
+//Johans key
+var secretKey = "1d2a1962f482ae789c15b56b59b526d7";
 var iconColor = "black";
 var skycons = new Skycons({ "color": iconColor });
 
