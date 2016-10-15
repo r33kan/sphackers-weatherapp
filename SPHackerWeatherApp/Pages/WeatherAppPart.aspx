@@ -28,6 +28,7 @@
 </head>
 <body>
     <div id="AppPartContent" class="container main">
+        <%--header visar plats, tid och länk till väderdetaljer--%>
         <div id="AppPartHeader" class="jumbotron container row">
             <div id="AppPartHeaderLocation" class="col-sm-12">
                 <h1 id="cityLocation"></h1>
@@ -39,7 +40,7 @@
                 <a href="Default.aspx" id="AppPartHeaderDetailsLink" class="btn btn-primary btn-lg">Detaljer</a>
             </div>
         </div>
-
+        <%--body presenterar vädret för idag--%>
         <div id="AppPartBody" class="container row">
             <div id="AppPartBodySummary"></div>
             <canvas id='icon1' width='128' height='128'></canvas>
@@ -84,12 +85,6 @@
             </div>
         </div>
     </div>
-
-    <%--custom tema-css--%>
-    <%--    <div id="cssTheme">
-        <link id="cssTheme" href="../Content/App.css" rel="stylesheet" />
-    </div>--%>
-
 
     <%--Egen javascript--%>
     <script src="../Scripts/App.js"></script>

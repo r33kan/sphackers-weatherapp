@@ -99,6 +99,7 @@ function getBody(weatherData, getUnit) {
     return body;
 }
 
+// ändra temat för appen
 function setTheme(input) {
     var theme = parseInt(input);
     var href = "";
@@ -160,6 +161,8 @@ function getUnitSymbol(unit) {
 
     return symbol;
 }
+
+// m/s eller MPH för vindhastighet
 function getWindSpeedUnit(unit) {
 
     unit = parseInt(unit);
