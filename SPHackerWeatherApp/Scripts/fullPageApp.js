@@ -4,19 +4,30 @@ $("#navDetails").click(function () {
     $("#details").show();
     $("#tempGraf").hide();
     $("#forecastGraf").hide();
+    $("#about").hide();
 });
 
 $("#navTempGraf").click(function () {
     $("#details").hide();
     $("#tempGraf").show();
     $("#forecastGraf").hide();
+    $("#about").hide();
 });
 
 $("#navForecastGraf").click(function () {
     $("#details").hide();
     $("#tempGraf").hide();
     $("#forecastGraf").show();
+    $("#about").hide();
 });
+
+$("#navAbout").click(function () {
+    $("#details").hide();
+    $("#tempGraf").hide();
+    $("#forecastGraf").hide();
+    $("#about").show();
+});
+
 (function () {
     "user strict";
 
@@ -1207,7 +1218,11 @@ function showTempChart(data) {
                 label: 'Temperatur',
                 data: temperatur,
                 fill: false,
-                borderDash: [5, 5]
+                borderColor: "black",
+                backgroundColor: "black",
+                pointBorderColor: "tomato",
+                pointBackgroundColor: "tomato",
+                pointBorderWidth: 1
             }]
         },
         options: {

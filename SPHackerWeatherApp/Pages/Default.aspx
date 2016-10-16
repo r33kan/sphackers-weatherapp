@@ -75,8 +75,8 @@
 		</div>
 	</div>
 
-	<div id="about" class="container">
-
+	<div id="about" class="container" hidden="true";>
+        about
 	</div>
 	    
     </div>
