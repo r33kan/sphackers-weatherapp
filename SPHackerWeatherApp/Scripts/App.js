@@ -78,8 +78,8 @@ function getBody(weatherData, getUnit) {
     var windspeedSymbol = getWindSpeedUnit(getUnit);
 
     var temperatur = parseFloat(weatherData.temperature);
-    var time = new Date(weatherData.time);
-    var todayDate = moment.unix(time).format("llll");
+    //var time = new Date(weatherData.time);
+    var todayDate = moment.unix(weatherData.time).format("llll");
     var weatherSummary = weatherData.summary;
     var windBearing = translatewindBearing(weatherData.windBearing);
     var windSpeed = parseFloat(weatherData.windSpeed);
@@ -277,19 +277,31 @@ function setLocation(location) {
 //översätt vindriktning
 function translatewindBearing(input) {
     "use strict";
-    var value = parseFloat(input);
 
-    switch (value) {
-        case 0: { return "nordlig"; }
-        case value > 0 && value < 45: { return "nord / nordost"; }
-        case value > 45 && value < 90: { return "ost / nordost"; }
-        case 90: { return "östlig"; }
-        case value > 90 && value < 180: { return "syd / sydost"; }
-        case 180: { return "sydlig"; }
-        case value > 180 && value < 270: { return "syd / sydväst"; }
-        case 270: { return "västlig"; }
-        case value > 270 && value < 360: { return "nord / nordväst"; }
-        default: { return "vindstilla"; }
-    }
+    var value = parseInt(input);
+    console.log("vindriktning: " + value);
+    //switch (value) {
+    //    case 0: { return "nordlig"; }
+    //    case value > 0 && value < 45: { return "nord / nordost"; }
+    //    case value > 45 && value < 90: { return "ost / nordost"; }
+    //    case 90: { return "östlig"; }
+    //    case value > 90 && value < 180: { return "syd / sydost"; }
+    //    case 180: { return "sydlig"; }
+    //    case value > 180 && value < 270: { return "syd / sydväst"; }
+    //    case 270: { return "västlig"; }
+    //    case value > 270 && value < 360: { return "nord / nordväst"; }
+    //    default: { return "vindstilla"; }
+    //}
+
+    if (value === 0) { return "nordlig"; }
+    else if (value > 0 && value <= 45) { return "nord / nordost"; }
+    else if (value > 45 && value < 90) { return "ost / nordost"; }
+    else if (value > 90 && value < 180) { return "syd / sydost"; }
+    else if (value === 180) { return "sydlig"; }
+    else if (value > 180 && value < 270) { return "syd / sydväst"; }
+    else if (value === 270) { return "västlig"; }
+    else if (value > 270 && value < 360) { return "nord / nordväst"; }
+    else { return "vindstilla"; }
+
 }
 
