@@ -1113,8 +1113,9 @@ $("#navAbout").click(function () {
             "units": "us"
         }
     };
-    var weatherTemp = {};
-
+    var weatherTemp =  "";
+       
+    
     // $.ajax({
     //     METHOD: "GET",
     //     dataType: "jsonp",
@@ -1142,6 +1143,11 @@ $("#navAbout").click(function () {
 
 function error() {
     errorMessage = "Det gick inte att hämta väderuppgifterna just nu. Vänligen försök senare";
+}
+
+
+function showDetails(data) {
+
 }
 
 function setLocation(location) {

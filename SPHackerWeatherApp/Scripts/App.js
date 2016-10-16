@@ -159,6 +159,8 @@ function getUnitSymbol(unit) {
             break;
     }
 
+    localStorage.setItem("unitSymbol", symbol);
+
     return symbol;
 }
 
@@ -177,6 +179,7 @@ function getWindSpeedUnit(unit) {
             break;
     }
 
+    localStorage.setItem("windspeedSymbol", symbol);
     return symbol;
 }
 
@@ -257,19 +260,24 @@ function setLocation(location) {
         case 1: {
             position = forecastURL + city.Stockholm.latitude + "," + city.Stockholm.longitude;
             $("#cityLocation").text("Stockholm");
+            localStorage.setItem("location", "Stockholm");
             break;
         }
         case 2: {
             position = forecastURL + city.Gothemburg.latitude + "," + city.Gothemburg.longitude;
             $("#cityLocation").text("Göteborg");
+            localStorage.setItem("location", "Göteborg");
             break;
         }
         case 3: {
             position = forecastURL + city.Malmo.latitude + "," + city.Malmo.longitude;
             $("#cityLocation").text("Malmö");
+            localStorage.setItem("location", "Malmö");
             break;
         }
     }
+
+    localStorage.setItem("locationUrl", position);
 
     return position;
 }
@@ -279,7 +287,7 @@ function translatewindBearing(input) {
     "use strict";
 
     var value = parseInt(input);
-    console.log("vindriktning: " + value);
+    var windBearing = "";
     //switch (value) {
     //    case 0: { return "nordlig"; }
     //    case value > 0 && value < 45: { return "nord / nordost"; }
@@ -293,15 +301,17 @@ function translatewindBearing(input) {
     //    default: { return "vindstilla"; }
     //}
 
-    if (value === 0) { return "nordlig"; }
-    else if (value > 0 && value <= 45) { return "nord / nordost"; }
-    else if (value > 45 && value < 90) { return "ost / nordost"; }
-    else if (value > 90 && value < 180) { return "syd / sydost"; }
-    else if (value === 180) { return "sydlig"; }
-    else if (value > 180 && value < 270) { return "syd / sydväst"; }
-    else if (value === 270) { return "västlig"; }
-    else if (value > 270 && value < 360) { return "nord / nordväst"; }
+    if (value === 0) { windBearing = "nordlig"; }
+    else if (value > 0 && value <= 45) { windBearing = "nord / nordost"; }
+    else if (value > 45 && value < 90) { windBearing = "ost / nordost"; }
+    else if (value > 90 && value < 180) { windBearing = "syd / sydost"; }
+    else if (value === 180) { windBearing = "sydlig"; }
+    else if (value > 180 && value < 270) { windBearing = "syd / sydväst"; }
+    else if (value === 270) { windBearing = "västlig"; }
+    else if (value > 270 && value < 360) { windBearing = "nord / nordväst"; }
     else { return "vindstilla"; }
 
+    localStorage.setItem("windBearing", windBearing);
+    return windBearing;
 }
 
