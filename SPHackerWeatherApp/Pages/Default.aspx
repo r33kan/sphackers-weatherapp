@@ -9,22 +9,16 @@
 <%-- The markup and script in the following Content element will be placed in the <head> of the page --%>
 <asp:Content ContentPlaceHolderID="PlaceHolderAdditionalPageHead" runat="server">
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
-    <SharePoint:ScriptLink name="sp.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" />
+    <SharePoint:ScriptLink Name="sp.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" />
     <meta name="WebPartPageExpansion" content="full" />
 
-
-
-    <%--javascriptbibliotek--%>
+    <%--Javascriptbibliotek--%>
     <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/moment-with-locales.min.js"></script>
     <script src="../Scripts/Chart.min.js"></script>
 
-    <%--CSS-biblotek--%>
+    <%--CSS bibliotek--%>
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
-    
-    <%--Egen javascript--%>
-    <%--<script type="text/javascript" src="../Scripts/App.js"></script>--%>
-
 
     <%--Egen CSS--%>
     <link rel="Stylesheet" type="text/css" href="../Content/App.css" />
@@ -38,47 +32,40 @@
 
     <div class="container-fluid">
         <div class="navbar navbar-default">
-		<div class="container-fluid">
-			<ul class="nav navbar-nav">
-				<li id="navDetails"><a href="#">Detaljer</a></li>
-				<li id="navTempGraf"><a href="#">Temperaturgraf idag</a></li>
-				<li id="navForecastGraf"><a href="#">Forecast</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li id="navAbout"><a href="#">About</a></li>
-			</ul>
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <li id="navDetails"><a href="#">Detaljer</a></li>
+                    <li id="navTempGraf"><a href="#">Temperaturgraf idag</a></li>
+                    <li id="navForecastGraf"><a href="#">Forecast</a></li>
+                </ul>
 
-	</div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="navAbout"><a href="#">About</a></li>
+                </ul>
             </div>
-  
-	<div id="details" class="container">
-		Index
-	</div>
+        </div>
 
+        <div id="response"></div>
 
+        <div id="details" class="container">
+            Index
+        </div>
 
-	<div id="tempGraf" class="container" hidden="true">
+        <div id="tempGraf" class="container" hidden="true">
+            <div>
+                <canvas id="todayChart" width="20" height="10"></canvas>
+            </div>
+        </div>
 
-		<div id="response"></div>
+        <div id="forecastGraf" class="container" hidden="true">
+            <div id="tempChart">
+                <canvas id="forecastChart" width="20" height="10"></canvas>
+            </div>
+        </div>
 
-		<div>
-			<canvas id="todayChart" width="20" height="10"></canvas>
-		</div>
-
-	</div>
-
-	<div id="forecastGraf" class="container"  hidden="true">
-		<div id="response"></div>
-
-		<div id="tempChart">
-			<canvas id="forecastChart" width="20" height="10"></canvas>
-		</div>
-	</div>
-
-	<div id="about" class="container" hidden="true";>
-        about
-	</div>
-	    
+        <div id="about" class="container" hidden="true">
+            about
+        </div>
     </div>
 
     <script src="../Scripts/fullPageApp.js"></script>
