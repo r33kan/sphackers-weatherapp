@@ -31,6 +31,8 @@ function getQueryStringParameter(urlParameterKey) {
     var weatherTemp = "";
     setTheme(getTheme);
 
+    localStorage.setItem("unit", getUnit);  
+
     $.ajax({
         METHOD: "GET",
         dataType: "jsonp",

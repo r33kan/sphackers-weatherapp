@@ -1,4 +1,6 @@
 ﻿var secretKey = "629b0a384ddac75d1c1fa827e8846375/";
+var iconColor = "black";
+var skycons = new Skycons({ "color": iconColor });
 
 $("#navDetails").click(function () {
     $("#details").show();
@@ -1113,7 +1115,8 @@ $("#navAbout").click(function () {
             "units": "us"
         }
     };
-    var weatherTemp =  "";
+    var weatherTemp = "";
+    var detailsData = "";
        
     
     // $.ajax({
@@ -1139,6 +1142,9 @@ $("#navAbout").click(function () {
 
     showTempChart(weatherData);
     forecastTempChart(weatherData.daily.data);
+    detailsData = showDetails(weatherData);
+
+    $("#detailsData").html(detailsData)
 }());
 
 function error() {
@@ -1147,7 +1153,66 @@ function error() {
 
 
 function showDetails(data) {
+    var today = data.currently;
+    var unit = parseInt(localStorage.getItem("unit"));
+    var temperatur = today.temperature;
+    var windSpeed = today.windSpeed;
+    var windBearing = localStorage.getItem("windBearing");
+    var windspeedSymbol = localStorage.getItem("windspeedSymbol");
+    var unitSymbol = localStorage.getItem("unitSymbol");
+    var humidity = today.humidity;
+    var pressure = today.pressure;
+    var ozone = today.ozone;
+    var result = "";
 
+    var isCelcius = (unit === 1) ? true : false;
+    console.log(isCelcius);
+
+    if (isCelcius) {
+        temperatur = (temperatur - 32) / 1.8000;
+        windSpeed = windSpeed / 2.236936;
+    }
+
+    result = "<div class='well well-lg'>" +
+                "<p><strong>Temperatur: </strong> " + temperatur.toFixed(2) + " " + unitSymbol + "</p>" +
+                "<p><strong>Vind: </strong> " + windSpeed.toFixed(2) + " " + windspeedSymbol + " " + windBearing + "</p>" +
+                "<p><strong>Luftfuktighet: </strong> " + humidity + "</p>" +
+                "<p><strong>Lufttryck: </strong> " + pressure + "</p>" +
+                "<p><strong>Ozone: </strong> " + ozone + "</p>" +
+            "</div>";
+    skycons.add(document.getElementById("weatherIcon"), today.icon);
+    skycons.add("icon1", today.icon);
+    return result;
+}
+
+function getBody(weatherData, getUnit) {
+    getUnit = parseInt(getUnit);
+
+    var body = "";
+    var isCelsius = (getUnit === 1) ? true : false;
+    var unitSymbol = getUnitSymbol(getUnit);
+    var windspeedSymbol = getWindSpeedUnit(getUnit);
+
+    var temperatur = parseFloat(weatherData.temperature);
+    //var time = new Date(weatherData.time);
+    var todayDate = moment.unix(weatherData.time).format("llll");
+    var weatherSummary = weatherData.summary;
+    var windBearing = translatewindBearing(weatherData.windBearing);
+    var windSpeed = parseFloat(weatherData.windSpeed);
+
+    if (isCelsius) {
+        temperatur = (temperatur - 32) / 1.8000;
+        windSpeed = windSpeed / 2.236936;
+    }
+
+    body = "<div><h4> " + temperatur.toFixed(1) + "" + unitSymbol + " " + weatherSummary + "</h4></div>" +
+           "<div><p>Vindriktning: " + windBearing + " Vindhastighet: " + windSpeed.toFixed(0) + " " + windspeedSymbol + "</p></div>";
+
+    //rita upp korrekt väderikon för väderleken
+    skycons.add(document.getElementById("icon1"), weatherData.icon);
+    skycons.add("icon1", weatherData.icon);
+
+    return body;
 }
 
 function setLocation(location) {

@@ -15,6 +15,7 @@
     <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/moment-with-locales.min.js"></script>
     <script src="../Scripts/Chart.min.js"></script>
+    <script src="../Scripts/skycons.js"></script>
 
     <%--CSS bibliotek--%>
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
@@ -44,12 +45,23 @@
         <div id="response"></div>
 
         <div id="details" class="container">
-            Index
+            <div class="well well-lg">
+                <canvas id="weatherIcon" width="128" height="128"></canvas>
+                <div id="detailsData"></div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Panel heading</div>
+                <div class="panel-body">
+            </div>
+
+
         </div>
 
         <div id="tempGraf" class="container" hidden="true">
             <div>
                 <canvas id="todayChart" width="20" height="10"></canvas>
+
             </div>
         </div>
 
@@ -64,5 +76,6 @@
         </div>
     </div>
 
+        <%--Egen JavaScript--%>
     <script src="../Scripts/fullPageApp.js"></script>
 </asp:Content>
