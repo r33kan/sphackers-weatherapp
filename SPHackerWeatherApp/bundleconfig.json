@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "Scripts/moment-with-locales.min.min.js",
+    "inputFiles": [
+      "Scripts/moment-with-locales.min.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/fullPageApp.min.js",
+    "inputFiles": [
+      "Scripts/fullPageApp.js"
+    ]
+  }
+]

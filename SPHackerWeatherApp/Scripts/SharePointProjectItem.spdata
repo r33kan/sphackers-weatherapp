@@ -14,5 +14,9 @@
     <ProjectItemFile Source="moment-with-locales.min.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="moment-with-locales.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="skycons.js" Target="Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="moment-with-locales.min.min.js" Target="Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="Chart.min.js" Target="Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="fullPageApp.js" Target="Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="fullPageApp.min.js" Target="Scripts\" Type="ElementFile" />
   </Files>
 </ProjectItem>

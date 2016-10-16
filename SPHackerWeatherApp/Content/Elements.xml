@@ -13,5 +13,6 @@
     <File Path="Content\darkTheme.css" Url="Content/darkTheme.css" ReplaceContent="TRUE" />
     <File Path="Content\spBlue.css" Url="Content/spBlue.css" ReplaceContent="TRUE" />
     <File Path="Content\lightTheme.css" Url="Content/lightTheme.css" ReplaceContent="TRUE" />
+    <File Path="Content\fullPageStyle.css" Url="Content/fullPageStyle.css" ReplaceContent="TRUE" />
   </Module>
 </Elements>

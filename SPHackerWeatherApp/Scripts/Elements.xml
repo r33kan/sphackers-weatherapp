@@ -13,5 +13,9 @@
     <File Path="Scripts\moment-with-locales.min.js" Url="Scripts/moment-with-locales.min.js" ReplaceContent="TRUE" />
     <File Path="Scripts\moment-with-locales.js" Url="Scripts/moment-with-locales.js" ReplaceContent="TRUE" />
     <File Path="Scripts\skycons.js" Url="Scripts/skycons.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\moment-with-locales.min.min.js" Url="Scripts/moment-with-locales.min.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Chart.min.js" Url="Scripts/Chart.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\fullPageApp.js" Url="Scripts/fullPageApp.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\fullPageApp.min.js" Url="Scripts/fullPageApp.min.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

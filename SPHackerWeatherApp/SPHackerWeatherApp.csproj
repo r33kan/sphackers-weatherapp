@@ -43,6 +43,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="bundleconfig.json" />
     <None Include="Content\bootstrap-theme.css.map" />
     <None Include="Content\bootstrap-theme.min.css.map" />
     <None Include="Content\bootstrap.css.map" />
@@ -60,6 +61,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\darkTheme.css" />
+    <Content Include="Content\fullPageStyle.css" />
     <Content Include="Content\lightTheme.css" />
     <Content Include="Content\spBlue.css" />
     <Content Include="Elements.xml" />
@@ -87,13 +89,21 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\Elements.xml" />
     <Content Include="Scripts\App.js" />
+    <Content Include="Scripts\fullPageApp.js" />
+    <Content Include="Scripts\fullPageApp.min.js">
+      <DependentUpon>fullPageApp.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment-with-locales.min.min.js">
+      <DependentUpon>moment-with-locales.min.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\skycons.js" />

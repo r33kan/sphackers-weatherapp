@@ -12,23 +12,74 @@
     <SharePoint:ScriptLink name="sp.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" />
     <meta name="WebPartPageExpansion" content="full" />
 
-    <!-- Add your CSS styles to the following file -->
+
+
+    <%--javascriptbibliotek--%>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/moment-with-locales.min.js"></script>
+    <script src="../Scripts/Chart.min.js"></script>
+
+    <%--CSS-biblotek--%>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    
+    <%--Egen javascript--%>
+    <%--<script type="text/javascript" src="../Scripts/App.js"></script>--%>
+
+
+    <%--Egen CSS--%>
     <link rel="Stylesheet" type="text/css" href="../Content/App.css" />
+    <link href="../Content/fullPageStyle.css" rel="stylesheet" />
 
-    <!-- Add your JavaScript to the following file -->
-    <script type="text/javascript" src="../Scripts/App.js"></script>
-</asp:Content>
 
-<%-- The markup in the following Content element will be placed in the TitleArea of the page --%>
-<asp:Content ContentPlaceHolderID="PlaceHolderPageTitleInTitleArea" runat="server">
-    Page Title
 </asp:Content>
 
 <%-- The markup and script in the following Content element will be placed in the <body> of the page --%>
 <asp:Content ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
-    <div>
-        <h4>Här kommer väderdetaljer finnas på måndag...</h4>
+    <div class="container-fluid">
+        <div class="navbar navbar-default">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li id="navDetails"><a href="#">Detaljer</a></li>
+				<li id="navTempGraf"><a href="#">Temperaturgraf idag</a></li>
+				<li id="navForecastGraf"><a href="#">Forecast</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li id="navAbout"><a href="#">About</a></li>
+			</ul>
+
+	</div>
+            </div>
+  
+	<div id="details" class="container">
+		Index
+	</div>
+
+
+
+	<div id="tempGraf" class="container" hidden="true">
+
+		<div id="response"></div>
+
+		<div>
+			<canvas id="todayChart" width="20" height="10"></canvas>
+		</div>
+
+	</div>
+
+	<div id="forecastGraf" class="container"  hidden="true">
+		<div id="response"></div>
+
+		<div id="tempChart">
+			<canvas id="forecastChart" width="20" height="10"></canvas>
+		</div>
+	</div>
+
+	<div id="about" class="container">
+
+	</div>
+	    
     </div>
 
+    <script src="../Scripts/fullPageApp.js"></script>
 </asp:Content>
