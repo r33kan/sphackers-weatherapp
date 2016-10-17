@@ -34,10 +34,10 @@
             <div id="AppPartHeaderLocation" class="col-sm-12">
                 <h1 id="cityLocation"></h1>
             </div>
-            <div id="AppPartHeaderDate" class="col-sm-4 info">
+            <div id="AppPartHeaderDate" class="col-sm-12 info">
                 <p id="AppPartHeaderDateDisplay">Datum</p>
             </div>
-            <div id="AppPartHeaderDetails" class="col-sm-4 info">
+            <div id="AppPartHeaderDetails" class="col-sm-12 info">
                 <p id="AppPartHeaderDetailsLink">
                     <a href="Default.aspx" target="_blank" class="btn btn-primary btn-lg">Detaljer</a>
                 </p>
@@ -50,36 +50,36 @@
         </div>
 
         <%--footer med väderdata för nästkommande 5 dagar--%>
-        <div id="AppPartFooter" class="container row col-sm-12">
-            <div class='forcast col-sm-2'>
+        <div id="AppPartFooter" class="container row">
+            <div class='forcast'>
                 <div id="forecastDay1"></div>
                 <div>
                     <canvas class="forcastImg" id="forecastCanvas1"></canvas>
                 </div>
                 <div id="forecastTemp1"></div>
             </div>
-            <div class='forcast col-sm-2'>
+            <div class='forcast'>
                 <div id="forecastDay2"></div>
                 <div>
                     <canvas class="forcastImg" id="forecastCanvas2"></canvas>
                 </div>
                 <div id="forecastTemp2"></div>
             </div>
-            <div class='forcast col-sm-2'>
+            <div class='forcast'>
                 <div id="forecastDay3"></div>
                 <div>
                     <canvas class="forcastImg" id="forecastCanvas3"></canvas>
                 </div>
                 <div id="forecastTemp3"></div>
             </div>
-            <div class='forcast col-sm-2'>
+            <div class='forcast'>
                 <div id="forecastDay4"></div>
                 <div>
                     <canvas class="forcastImg" id="forecastCanvas4"></canvas>
                 </div>
                 <div id="forecastTemp4"></div>
             </div>
-            <div class='forcast col-sm-2'>
+            <div class='forcast'>
                 <div id="forecastDay5"></div>
                 <div>
                     <canvas class="forcastImg" id="forecastCanvas5"></canvas>
