@@ -24,55 +24,82 @@ function getQueryStringParameter(urlParameterKey) {
     var getTheme = getQueryStringParameter("contosoTheme");
 
     var body = "";
+    var newDate = new Date();
+    var currentTime = moment(newDate).format("YYYY-MM-dd");
     var errorMessage = "";
     var getWeather = setLocation(getLocation);
     var header = "";
+    var updateTime = localStorage.getItem("time");
     var weatherObject = {};
     var weatherTemp = "";
     setTheme(getTheme);
 
-    localStorage.setItem("unit", getUnit);  
+    localStorage.setItem("unit", getUnit);
 
-    $.ajax({
-        METHOD: "GET",
-        dataType: "jsonp",
-        crossDomain: true,
-        url: getWeather,
-        success: function (data) {
-            weatherTemp = data;
-        },
-        failure: function () {
-            errorMessage = "Det gick inte att hämta väderuppgifterna just nu. Vänligen försök senare";
-        },
-        complete: function () {
+    console.log("currentTime: " + currentTime + " updateTime: " + updateTime);
 
-            if (errorMessage === "") {
-                weatherObject = weatherTemp;
-                localStorage.setItem("weatherCurrently", JSON.stringify(weatherObject.currently));
-                localStorage.setItem("weatherPerHour", JSON.stringify(weatherObject.hourly.data));
-                localStorage.setItem("weatherForecast", JSON.stringify(weatherObject.daily.data));
-                localStorage.setItem("weatherData", JSON.stringify(weatherObject));
+    if (currentTime === updateTime) {
+        console.log("inte ajax");
+        weatherTemp = localStorage.getItem("weatherData");
+        weatherObject = JSON.parse(weatherTemp);
 
-                var time = new Date(weatherObject.currently.time);
-                var todayDate = moment.unix(time).format("llll");
+        var time = new Date(weatherObject.currently.time);
+        var todayDate = moment.unix(time).format("llll");
 
-                //skapa html-element för body på app part
-                body = getBody(weatherObject.currently, getUnit);
+        //skapa html-element för body på app part
+        body = getBody(weatherObject.currently, getUnit);
 
-                // hämta forecast för nästkommande 5 dagar
-                listForecast(weatherObject.daily.data, getUnit);
+        // hämta forecast för nästkommande 5 dagar
+        listForecast(weatherObject.daily.data, getUnit);
 
-                $("#AppPartHeaderDateDisplay").text(todayDate);
-                $("#AppPartBodySummary").html(body);
+        $("#AppPartHeaderDateDisplay").text(todayDate);
+        $("#AppPartBodySummary").html(body);
 
-                // starta animation för väderikoner
-                skycons.play();
+        // starta animation för väderikoner
+        skycons.play();
+    }
+    else {
+        console.log("ajax");
+        $.ajax({
+            METHOD: "GET",
+            dataType: "jsonp",
+            crossDomain: true,
+            url: getWeather,
+            success: function (data) {
+                weatherTemp = data;
+            },
+            failure: function () {
+                errorMessage = "Det gick inte att hämta väderuppgifterna just nu. Vänligen försök senare";
+            },
+            complete: function () {
+
+                if (errorMessage === "") {
+                    weatherObject = weatherTemp;
+
+                    var time = new Date(weatherObject.currently.time);
+                    var todayDate = moment.unix(time).format("llll");
+
+                    localStorage.setItem("weatherData", JSON.stringify(weatherObject));
+                    localStorage.setItem("time", moment.unix(time).format("YYYY-MM-dd"));
+
+                    //skapa html-element för body på app part
+                    body = getBody(weatherObject.currently, getUnit);
+
+                    // hämta forecast för nästkommande 5 dagar
+                    listForecast(weatherObject.daily.data, getUnit);
+
+                    $("#AppPartHeaderDateDisplay").text(todayDate);
+                    $("#AppPartBodySummary").html(body);
+
+                    // starta animation för väderikoner
+                    skycons.play();
+                }
+                else {
+                    $("#response").text(errorMessage);
+                }
             }
-            else {
-                $("#response").text(errorMessage);
-            }
-        }
-    });
+        });
+    }
     ResizeApp();
 }());
 
