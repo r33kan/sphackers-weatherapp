@@ -15,6 +15,7 @@
     <script type="text/javascript" src="/_layouts/15/MicrosoftAjax.js"></script>
     <script type="text/javascript" src="/_layouts/15/sp.runtime.js"></script>
     <script type="text/javascript" src="/_layouts/15/sp.js"></script>
+    <script src="../Scripts/jQueryRotate.js"></script>
     <script src="../Scripts/skycons.js"></script>
     <script src="../Scripts/moment-with-locales.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>

@@ -91,6 +91,7 @@ function getQueryStringParameter(urlParameterKey) {
         $("#AppPartHeaderDateDisplay").text(todayDate);
         $("#AppPartBodySummary").html(body);
 
+        getWindDirection(weatherObject.windBearing);
         // starta animation för väderikoner
         skycons.play();
     }
@@ -153,7 +154,7 @@ function getBody(weatherData, getUnit) {
     var temperatur = parseFloat(weatherData.temperature);
     //var time = new Date(weatherData.time);
     var todayDate = moment.unix(weatherData.time).format("llll");
-    var windIcon = "<canvas id='compass' src='../Images/weathericons/compass.svg'></canvas>";
+    var windIcon = "<img id='compass' src='../Images/weathericons/compass.svg'></img>";
     var weatherSummary = weatherData.summary;
     var windBearing = translatewindBearing(weatherData.windBearing);
     var windSpeed = parseFloat(weatherData.windSpeed);
@@ -169,6 +170,7 @@ function getBody(weatherData, getUnit) {
     //rita upp korrekt väderikon för väderleken
     skycons.add(document.getElementById("icon1"), weatherData.icon);
     skycons.add("icon1", weatherData.icon);
+
 
     return body;
 }
@@ -365,4 +367,11 @@ function translatewindBearing(input) {
 
     localStorage.setItem("windBearing", windBearing);
     return windBearing;
+}
+
+function getWindDirection(direction) {
+
+    direction = parseInt(direction);
+
+    $("#compass").rotate(direction);
 }
