@@ -34,7 +34,7 @@ var skycons = new Skycons({ "color": iconColor });
     "user strict";
 
     $("#details").show();
-    var getWeather = setLocation(1);
+    //var getWeather = setLocation(1);
     var errorMessage = "";
 
     var weatherTemp = "";
@@ -93,13 +93,16 @@ function showDetails(data) {
     // hämta inställd temperaturtyp
     var unit = parseInt(localStorage.getItem("unit"));
 
+    // begränsa data till currently-delen
+    var today = data.currently;
+
     var humidity = today.humidity;
     var isCelcius = (unit === 1) ? true : false;
     var ozone = today.ozone;
     var pressure = today.pressure;
     var result = "";
     var temperatur = today.temperature;
-    var today = data.currently;
+
     var unitSymbol = localStorage.getItem("unitSymbol");
     var windBearing = localStorage.getItem("windBearing");
     var windSpeed = today.windSpeed;
@@ -128,18 +131,22 @@ function showTempChart(data) {
     // hämta inställd temperaturtyp
     var unit = parseInt(localStorage.getItem("unit"));
 
+    //begränsa till datan för kommande timmar
+    var weatherToday = data.hourly.data;
+
     // hitta elementet att rita upp grafen i
     var ctx = $("#todayChart");
+
     // används ihop med timeNow för att avgöra när loopen ska avbrytas
     var foreCastDay = moment.unix(weatherToday[0].time).format("dddd");
     var isCelsius = (unit === 1) ? true : false;
     var index = 0;
     var temperatur = [];
     var time = [];
+
     // används ihop med foreCastDay för att avgöra när loopen ska avbrytas
     var timeNow = moment.unix(data.currently.time).format("dddd");
-    //begränsa till datan för kommande timmar
-    var weatherToday = data.hourly.data;
+
 
     // hämta temperatur / timme för innevarande dag
     if (isCelsius) {
