@@ -46,6 +46,8 @@
         <%--body presenterar vädret för idag--%>
         <div id="AppPartBody" class="container row">
             <div id="AppPartBodySummary"></div>
+
+            <%--div för vindhastighet och kompassriktning--%>
             <div id="AppPartBodyDetails">
                 <p id="windData"></p>
                 <img id="compass" src="../Images/weatherIcons/Compass.svg" />
