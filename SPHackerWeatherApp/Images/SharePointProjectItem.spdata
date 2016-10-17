@@ -5,5 +5,6 @@
     <ProjectItemFile Source="AppIcon.png" Target="Images\" Type="ElementFile" />
     <ProjectItemFile Source="weatherIcons\Cloudy.svg" Target="Images\weatherIcons\" Type="ElementFile" />
     <ProjectItemFile Source="weatherIcons\partly-cloudy-day.svg" Target="Images\weatherIcons\" Type="ElementFile" />
+    <ProjectItemFile Source="weatherIcons\Compass.svg" Target="Images\weatherIcons\" Type="ElementFile" />
   </Files>
 </ProjectItem>
