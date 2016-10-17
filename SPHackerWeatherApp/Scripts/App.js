@@ -72,10 +72,7 @@ function getQueryStringParameter(urlParameterKey) {
 
     localStorage.setItem("unit", getUnit);
 
-    console.log("currentTime: " + currentTime + " updateTime: " + updateTime);
-
     if (currentTime === updateTime) {
-        console.log("inte ajax");
         weatherTemp = localStorage.getItem("weatherData");
         weatherObject = JSON.parse(weatherTemp);
 
@@ -96,7 +93,6 @@ function getQueryStringParameter(urlParameterKey) {
         skycons.play();
     }
     else {
-        console.log("ajax");
         $.ajax({
             METHOD: "GET",
             dataType: "jsonp",
@@ -130,9 +126,7 @@ function getQueryStringParameter(urlParameterKey) {
 
                     getWindDirection(weatherObject.currently.windBearing);
                     // starta animation för väderikoner
-                    skycons.play();
-
-                    
+                    skycons.play();   
                 }
                 else {
                     $("#response").text(errorMessage);
@@ -370,9 +364,7 @@ function setLocation(location) {
 
 // justera kompassnål till vindriktning
 function getWindDirection(direction) {
-    console.log(direction);
     direction = parseInt(direction);
     
-    console.log("getWindDirection: ", direction);
     $("#compass").rotate(direction);
 }
