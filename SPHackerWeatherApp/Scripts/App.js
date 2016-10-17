@@ -55,13 +55,15 @@ function getQueryStringParameter(urlParameterKey) {
     var getUnit = getQueryStringParameter("contosoDegrees");
     var getTheme = getQueryStringParameter("contosoTheme");
 
-    var body = "";
+    // variabler för att sköta cachning mot localstorage
     var newDate = new Date();
     var currentTime = moment(newDate).format("YYYY-MM-dd");
+    var updateTime = localStorage.getItem("time");
+
+    var body = "";
     var errorMessage = "";
     var getWeather = setLocation(getLocation);
     var header = "";
-    var updateTime = localStorage.getItem("time");
     var weatherObject = {};
     var weatherTemp = "";
     setTheme(getTheme);
