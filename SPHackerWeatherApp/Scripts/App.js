@@ -31,7 +31,7 @@ Responsive.Part = {
             contentHeight = $('#AppPartContent').height(),
             resizeMessage = '<Message senderId={Sender_Id}>resize(100%, {Height})</Message>';
 
-        newHeight = contentHeight - (step-(contentHeight % step));
+        newHeight = contentHeight + (contentHeight % step);
         resizeMessage = resizeMessage.replace("{Sender_Id}", this.senderId);
         resizeMessage = resizeMessage.replace("{Height}", newHeight);
 

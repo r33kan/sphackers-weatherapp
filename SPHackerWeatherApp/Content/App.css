@@ -23,6 +23,7 @@ html, body{
 .forcast {
     display: inline-block;
     padding:5px 5px 0 5px;
+    min-width:100px;
 }
 
 #AppPartContent {
