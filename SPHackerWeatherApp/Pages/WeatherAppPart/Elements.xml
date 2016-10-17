@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
-  <ClientWebPart Name="WeatherAppPart" Title="Contoso Weather App" Description="Contosos väderapp" DefaultWidth="600" DefaultHeight="600">
+  <ClientWebPart Name="WeatherAppPart" Title="Contoso Weather App" Description="Contosos väderapp" DefaultWidth="0" DefaultHeight="0">
 
     <!-- Content element identifies the location of the page that will render inside the client web part
          Properties are referenced on the query string using the pattern _propertyName_

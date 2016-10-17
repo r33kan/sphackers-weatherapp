@@ -11,16 +11,16 @@
     <SharePoint:ScriptLink Name="sp.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" />
     <meta name="WebPartPageExpansion" content="full" />
 
-    <!--Javascriptbibliotek-->
+    <%--Javascriptbibliotek--%>
     <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/moment-with-locales.min.js"></script>
     <script src="../Scripts/Chart.min.js"></script>
     <script src="../Scripts/skycons.js"></script>
 
-    <!--CSS bibliotek-->
+    <%--CSS bibliotek--%>
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
 
-    <!--Egen CSS-->
+    <%--Egen CSS--%>
     <link rel="Stylesheet" type="text/css" href="../Content/App.css" />
     <link href="../Content/fullPageStyle.css" rel="stylesheet" />
 </asp:Content>
@@ -54,8 +54,6 @@
                 <div class="panel-heading">Panel heading</div>
                 <div class="panel-body">
                 </div>
-
-
             </div>
 
             <div id="tempGraf" class="container" hidden="true">
@@ -77,6 +75,6 @@
         </div>
     </div>
 
-    <!--Egen JavaScript-->
+    <%--Egen JavaScript--%>
     <script src="../Scripts/fullPageApp.js"></script>
 </asp:Content>

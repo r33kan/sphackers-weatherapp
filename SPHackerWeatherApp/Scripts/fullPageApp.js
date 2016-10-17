@@ -1151,7 +1151,6 @@ function error() {
     errorMessage = "Det gick inte att hämta väderuppgifterna just nu. Vänligen försök senare";
 }
 
-
 function showDetails(data) {
     var today = data.currently;
     var unit = parseInt(localStorage.getItem("unit"));

@@ -1,4 +1,8 @@
 ﻿/* Place custom styles below */
+html, body{
+    width:100%;
+}
+
 #AppPartHeader{
     color: black;
     background-color: darkgray;
@@ -31,4 +35,11 @@
 #AppPartFooter>*{
     border: 2px solid black;
     border-radius:5px;
+}
+
+.minTemp{
+    color: red;
+}
+.maxTemp{
+    color: green;
 }
