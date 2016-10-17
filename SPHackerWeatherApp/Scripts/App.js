@@ -54,9 +54,12 @@ function getQueryStringParameter(urlParameterKey) {
 
     //variabler för App Part settings
     var getLocation = getQueryStringParameter("contosoLocation");
-    var getUnit = getQueryStringParameter("contosoDegrees");
-    var getTheme = getQueryStringParameter("contosoTheme");
 
+    var getUnit = getQueryStringParameter("contosoDegrees");
+    localStorage.setItem("unit", getUnit);
+
+    var getTheme = getQueryStringParameter("contosoTheme");
+    localStorage.setItem("theme", getTheme);
     // variabler för att sköta cachning mot localstorage
     var newDate = new Date();
     var currentTime = moment(newDate).format("YYYY-MM-dd");
@@ -70,7 +73,7 @@ function getQueryStringParameter(urlParameterKey) {
     var weatherTemp = "";
     setTheme(getTheme);
 
-    localStorage.setItem("unit", getUnit);
+    
 
     if (currentTime === updateTime) {
         weatherTemp = localStorage.getItem("weatherData");
@@ -162,6 +165,11 @@ function getBody(weatherData, getUnit) {
     windData = "<h2><strong>Vind: " + windSpeed.toFixed(0) + " " + windspeedSymbol + "</strong></h2>";
 
     $("#windData").html(windData);
+
+
+    // matchar icon-färg mot tema
+    setTheme(localStorage.getItem("theme"));
+
     //rita upp korrekt väderikon för väderleken
     skycons.add(document.getElementById("icon1"), weatherData.icon);
     skycons.add("icon1", weatherData.icon);
