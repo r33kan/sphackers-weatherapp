@@ -87,22 +87,23 @@ function error() {
     errorMessage = "Det gick inte att hämta väderuppgifterna just nu. Vänligen försök senare";
 }
 
-
+// visa väderdetaljer för vald plats
 function showDetails(data) {
-    var today = data.currently;
+    "use strict";
+    // hämta inställd temperaturtyp
     var unit = parseInt(localStorage.getItem("unit"));
-    var temperatur = today.temperature;
-    var windSpeed = today.windSpeed;
-    var windBearing = localStorage.getItem("windBearing");
-    var windspeedSymbol = localStorage.getItem("windspeedSymbol");
-    var unitSymbol = localStorage.getItem("unitSymbol");
-    var humidity = today.humidity;
-    var pressure = today.pressure;
-    var ozone = today.ozone;
-    var result = "";
 
+    var humidity = today.humidity;
     var isCelcius = (unit === 1) ? true : false;
-    console.log(isCelcius);
+    var ozone = today.ozone;
+    var pressure = today.pressure;
+    var result = "";
+    var temperatur = today.temperature;
+    var today = data.currently;
+    var unitSymbol = localStorage.getItem("unitSymbol");
+    var windBearing = localStorage.getItem("windBearing");
+    var windSpeed = today.windSpeed;
+    var windspeedSymbol = localStorage.getItem("windspeedSymbol");
 
     if (isCelcius) {
         temperatur = (temperatur - 32) / 1.8000;
@@ -121,90 +122,26 @@ function showDetails(data) {
     return result;
 }
 
-function getBody(weatherData, getUnit) {
-    getUnit = parseInt(getUnit);
-
-    var body = "";
-    var isCelsius = (getUnit === 1) ? true : false;
-    var unitSymbol = getUnitSymbol(getUnit);
-    var windspeedSymbol = getWindSpeedUnit(getUnit);
-
-    var temperatur = parseFloat(weatherData.temperature);
-    //var time = new Date(weatherData.time);
-    var todayDate = moment.unix(weatherData.time).format("llll");
-    var weatherSummary = weatherData.summary;
-    var windBearing = translatewindBearing(weatherData.windBearing);
-    var windSpeed = parseFloat(weatherData.windSpeed);
-
-    if (isCelsius) {
-        temperatur = (temperatur - 32) / 1.8000;
-        windSpeed = windSpeed / 2.236936;
-    }
-
-    body = "<div><h4> " + temperatur.toFixed(1) + "" + unitSymbol + " " + weatherSummary + "</h4></div>" +
-           "<div><p>Vindriktning: " + windBearing + " Vindhastighet: " + windSpeed.toFixed(0) + " " + windspeedSymbol + "</p></div>";
-
-    //rita upp korrekt väderikon för väderleken
-    skycons.add(document.getElementById("icon1"), weatherData.icon);
-    skycons.add("icon1", weatherData.icon);
-
-    return body;
-}
-
-function setLocation(location) {
-    var city = {
-        Stockholm: {
-            longitude: "18.00",
-            latitude: "59.00"
-        },
-        Gothemburg: {
-            longitude: "11.97",
-            latitude: "57.7"
-        },
-        Malmo: {
-            longitude: "13",
-            latitude: "55.6"
-        }
-    };
-    var locationInt = parseInt(location);
-
-    var forecastURL = "https://api.darksky.net/forecast/" + secretKey;
-    var position = "";
-    switch (locationInt) {
-        case 1: {
-            position = forecastURL + city.Stockholm.latitude + "," + city.Stockholm.longitude;
-            $("#cityLocation").text("Stockholm");
-            break;
-        }
-        case 2: {
-            position = forecastURL + city.Gothemburg.latitude + "," + city.Gothemburg.longitude;
-            $("#cityLocation").text("Göteborg");
-            break;
-        }
-        case 3: {
-            position = forecastURL + city.Malmo.latitude + "," + city.Malmo.longitude;
-            $("#cityLocation").text("Malmö");
-            break;
-        }
-    }
-
-    return position;
-}
-
+// rita upp temperatur timme för timme innevarande dygn
 function showTempChart(data) {
     "use strict";
+    // hämta inställd temperaturtyp
     var unit = parseInt(localStorage.getItem("unit"));
-    var weatherToday = data.hourly.data;
-    var isCelsius = (unit === 1) ? true : false;
 
+    // hitta elementet att rita upp grafen i
+    var ctx = $("#todayChart");
+    // används ihop med timeNow för att avgöra när loopen ska avbrytas
     var foreCastDay = moment.unix(weatherToday[0].time).format("dddd");
+    var isCelsius = (unit === 1) ? true : false;
     var index = 0;
     var temperatur = [];
     var time = [];
+    // används ihop med foreCastDay för att avgöra när loopen ska avbrytas
     var timeNow = moment.unix(data.currently.time).format("dddd");
+    //begränsa till datan för kommande timmar
+    var weatherToday = data.hourly.data;
 
     // hämta temperatur / timme för innevarande dag
-
     if (isCelsius) {
         while (timeNow === foreCastDay) {
 
@@ -225,12 +162,6 @@ function showTempChart(data) {
             index++;
         }
     }
-
-    
-
-    // hitta elementet att rita upp grafen i
-    var ctx = $("#todayChart");
-
 
     // rita upp graf med datan
     var myChart = new Chart(ctx, {
@@ -281,19 +212,19 @@ function showTempChart(data) {
     });
 }
 
-
+// rita upp min och max temperatur för nästkommande 5 dagar
 function forecastTempChart(data) {
-
     "user strict";
 
-    var minTemp = [];
-    var maxTemp = [];
+    // hämta inställd temperaturtyp
+    var unit = parseInt(localStorage.getItem("unit")); 
+    
+    // används för att hitta rätt canvas för graf
+    var ctx = $("#forecastChart"); 
     var day = [];
-    var unit = parseInt(localStorage.getItem("unit"));
     var isCelsius = (unit === 1) ? true : false;
-
-
-    console.log("forecastTempChart");
+    var maxTemp = [];
+    var minTemp = [];
 
     if (isCelsius) {
         for (var index = 1; index <= 5; index++) {
@@ -311,12 +242,8 @@ function forecastTempChart(data) {
             day.push(moment.unix(data[index].time).format("dddd"));
         }
     }
-
-
-    var ctx = $("#forecastChart");
-    console.log(minTemp);
-    console.log(maxTemp);
-    console.log(day);
+    
+    // skapa graf enligt riktlinjer från chart.js
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -325,7 +252,6 @@ function forecastTempChart(data) {
                 label: 'lägsta temperatur',
                 data: minTemp,
                 fill: false,
-
                 borderColor: "lightblue",
                 backgroundColor: "lightblue",
                 pointBorderColor: "blue",
