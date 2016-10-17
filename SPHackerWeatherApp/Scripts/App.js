@@ -148,7 +148,8 @@ function getBody(weatherData, getUnit) {
 
     var temperatur = parseFloat(weatherData.temperature);
     var todayDate = moment.unix(weatherData.time).format("llll");
-    var windIcon = "<img id='compass' src='../Images/weathericons/compass.svg'></img>";
+    var windData = "";
+    //var windIcon = "<img id='compass' src='../Images/weathericons/compass.svg'></img>";
     var weatherSummary = weatherData.summary;
     var windSpeed = parseFloat(weatherData.windSpeed);
 
@@ -157,9 +158,10 @@ function getBody(weatherData, getUnit) {
         windSpeed = windSpeed / 2.236936;
     }
 
-    body = "<div><h1><strong> " + temperatur.toFixed(1) + "" + unitSymbol + " " + weatherSummary + "</strong></h1></div>" +
-           "<div><h2><strong>Vind: " + windSpeed.toFixed(0) + " " + windspeedSymbol + "" + windIcon + "</strong></h2></div>";
+    body = "<div><h1><strong> " + temperatur.toFixed(1) + "" + unitSymbol + " " + weatherSummary + "</strong></h1></div>";
+    windData = "<h2><strong>Vind: " + windSpeed.toFixed(0) + " " + windspeedSymbol + "</strong></h2>";
 
+    $("#windData").html(windData);
     //rita upp korrekt väderikon för väderleken
     skycons.add(document.getElementById("icon1"), weatherData.icon);
     skycons.add("icon1", weatherData.icon);
@@ -172,11 +174,16 @@ function getBody(weatherData, getUnit) {
 function setTheme(input) {
     var theme = parseInt(input);
     var href = "";
-
+    var windIcon = ""; 
     switch (theme) {
         default: {
             href = "#";
             skycons = new Skycons({ "color": "black" });
+            
+            windIcon = "../Images/weathericons/compass.svg";
+            $("#compass").attr("src", function () {
+                return windIcon;
+            });
 
             $("#cssTheme").attr("href", function () {
                 return href;
@@ -187,6 +194,12 @@ function setTheme(input) {
             href = "../Content/lightTheme.css";
             skycons = new Skycons({ "color": "black" });
 
+            windIcon = "../Images/weathericons/compass.svg";
+            
+            $("#compass").attr("src", function () {
+                return windIcon;
+            });
+
             $("#cssTheme").attr("href", function () {
                 return href;
             });
@@ -196,6 +209,12 @@ function setTheme(input) {
             href = "../Content/darkTheme.css";
             skycons = new Skycons({ "color": "tomato" });
 
+            windIcon = "../Images/weathericons/compassTomato.svg";
+            
+            $("#compass").attr("src", function () {
+                return windIcon;
+            });
+
             $("#cssTheme").attr("href", function () {
                 return href;
             });
@@ -204,6 +223,12 @@ function setTheme(input) {
         case 3: {
             href = "../Content/spBlue.css";
             skycons = new Skycons({ "color": "white" });
+
+            windIcon = "../Images/weathericons/compassWhite.svg";
+            
+            $("#compass").attr("src", function () {
+                return windIcon;
+            });
 
             $("#cssTheme").attr("href", function () {
                 return href;

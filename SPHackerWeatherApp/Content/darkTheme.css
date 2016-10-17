@@ -7,5 +7,6 @@
 }
 
 #compass {
-    color: tomato;
+    color-rendering: tomato;
+
 }

@@ -5,5 +5,7 @@
     <File Path="Images\weatherIcons\Cloudy.svg" Url="Images/weatherIcons/Cloudy.svg" ReplaceContent="TRUE" />
     <File Path="Images\weatherIcons\partly-cloudy-day.svg" Url="Images/weatherIcons/partly-cloudy-day.svg" ReplaceContent="TRUE" />
     <File Path="Images\weatherIcons\Compass.svg" Url="Images/weatherIcons/Compass.svg" ReplaceContent="TRUE" />
+    <File Path="Images\weatherIcons\CompassTomato.svg" Url="Images/weatherIcons/CompassTomato.svg" ReplaceContent="TRUE" />
+    <File Path="Images\weatherIcons\CompassWhite.svg" Url="Images/weatherIcons/CompassWhite.svg" ReplaceContent="TRUE" />
   </Module>
 </Elements>

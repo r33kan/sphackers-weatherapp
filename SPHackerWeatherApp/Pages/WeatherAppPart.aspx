@@ -46,7 +46,13 @@
         <%--body presenterar vädret för idag--%>
         <div id="AppPartBody" class="container row">
             <div id="AppPartBodySummary"></div>
-            <canvas id='icon1' width='128' height='128'></canvas>
+            <div>
+                <p id="windData"></p>
+                <img id="compass" src="../Images/weatherIcons/Compass.svg" />
+            </div>
+            <div>
+                <canvas id='icon1' width='128' height='128'></canvas>
+            </div>
         </div>
 
         <%--footer med väderdata för nästkommande 5 dagar--%>
