@@ -69,6 +69,7 @@
     <Content Include="Elements.xml" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\weatherIcons\Cloudy.svg" />
+    <Content Include="Images\weatherIcons\Compass.svg" />
     <Content Include="Images\weatherIcons\partly-cloudy-day.svg" />
     <Content Include="Pages\Elements.xml" />
     <Content Include="Pages\Default.aspx" />

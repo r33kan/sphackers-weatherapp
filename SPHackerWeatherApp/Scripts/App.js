@@ -150,6 +150,7 @@ function getBody(weatherData, getUnit) {
     var temperatur = parseFloat(weatherData.temperature);
     //var time = new Date(weatherData.time);
     var todayDate = moment.unix(weatherData.time).format("llll");
+    var windIcon = "<canvas id='compass' src='../Images/weathericons/compass.svg'></canvas>";
     var weatherSummary = weatherData.summary;
     var windBearing = translatewindBearing(weatherData.windBearing);
     var windSpeed = parseFloat(weatherData.windSpeed);
@@ -160,7 +161,7 @@ function getBody(weatherData, getUnit) {
     }
 
     body = "<div><h4> " + temperatur.toFixed(1) + "" + unitSymbol + " " + weatherSummary + "</h4></div>" +
-           "<div><p>Vindriktning: " + windBearing + " Vindhastighet: " + windSpeed.toFixed(0) + " " + windspeedSymbol + "</p></div>";
+           "<div><p>Vindriktning: " + windIcon + " " + windBearing + " Vindhastighet: " + windSpeed.toFixed(0) + " " + windspeedSymbol + "</p></div>";
 
     //rita upp korrekt väderikon för väderleken
     skycons.add(document.getElementById("icon1"), weatherData.icon);
@@ -177,7 +178,7 @@ function setTheme(input) {
     switch (theme) {
         default: {
             href = "#";
-            skycons = iconSetting = new Skycons({ "color": "black" });
+            skycons = new Skycons({ "color": "black" });
 
             $("#cssTheme").attr("href", function () {
                 return href;
@@ -186,7 +187,7 @@ function setTheme(input) {
         }
         case 1: {
             href = "../Content/lightTheme.css";
-            skycons = iconSetting = new Skycons({ "color": "black" });
+            skycons = new Skycons({ "color": "black" });
 
             $("#cssTheme").attr("href", function () {
                 return href;
@@ -195,7 +196,7 @@ function setTheme(input) {
         }
         case 2: {
             href = "../Content/darkTheme.css";
-            skycons = iconSetting = new Skycons({ "color": "tomato" });
+            skycons = new Skycons({ "color": "tomato" });
 
             $("#cssTheme").attr("href", function () {
                 return href;
@@ -204,7 +205,7 @@ function setTheme(input) {
         }
         case 3: {
             href = "../Content/spBlue.css";
-            skycons = iconSetting = new Skycons({ "color": "white" });
+            skycons = new Skycons({ "color": "white" });
 
             $("#cssTheme").attr("href", function () {
                 return href;
@@ -264,6 +265,7 @@ function listForecast(weatherForecast, getUnit) {
     var canvas = "";
     var forecastDay = "";
     var forecastTemp = "";
+    var index = "";
     var unit = getUnitSymbol(getUnit);
     var isCelcius = (getUnit === 1) ? true : false;
 
