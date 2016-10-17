@@ -37,7 +37,9 @@
                 <p id="AppPartHeaderDateDisplay">Datum</p>
             </div>
             <div id="AppPartHeaderDetails" class="col-sm-4 info">
-                <a href="Default.aspx" target="_blank" id="AppPartHeaderDetailsLink" class="btn btn-primary btn-lg">Detaljer</a>
+                <p id="AppPartHeaderDetailsLink">
+                    <a href="Default.aspx" target="_blank" class="btn btn-primary btn-lg">Detaljer</a>
+                </p>
             </div>
         </div>
         <%--body presenterar vädret för idag--%>

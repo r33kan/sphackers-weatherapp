@@ -1,4 +1,9 @@
 ﻿/* Place custom styles below */
+html, body{
+    width:100%;
+    text-align:left;
+}
+
 #AppPartHeader{
     color: black;
     background-color: darkgray;
@@ -21,7 +26,7 @@
 }
 
 #AppPartContent {
-    text-align: center;
+    text-align:center;
 }
 
 #AppPartFooter{

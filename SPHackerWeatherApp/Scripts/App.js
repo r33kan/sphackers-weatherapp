@@ -1,6 +1,4 @@
-﻿"use strict";
-
-//Mattias key
+﻿//Mattias key
 var secretKey = "629b0a384ddac75d1c1fa827e8846375/";
 //Johans key
 //var secretKey = "1d2a1962f482ae789c15b56b59b526d7";
@@ -12,6 +10,7 @@ window.Responsive = window.Responsive || {};
 
 Responsive.Part = {
     senderId: '',
+    hostURL:null,
     init: function () {
         // Retrieve required params
         var params = document.URL.split("?")[1].split("&");
@@ -19,6 +18,9 @@ Responsive.Part = {
             var param = params[i].split("=");
             if (param[0].toLowerCase() == "senderid") {
                 this.senderId = decodeURIComponent(param[1]);
+            }
+            if (this.hostURL == null) {
+                this.hostURL = decodeURIComponent(param[1]);
             }
         }
         this.adjustSize();
@@ -29,11 +31,11 @@ Responsive.Part = {
             contentHeight = $('#AppPartContent').height(),
             resizeMessage = '<Message senderId={Sender_Id}>resize(100%, {Height})</Message>';
 
-        newHeight = (step - (contentHeight % step)) + contentHeight;
+        newHeight = contentHeight - (step-(contentHeight % step));
         resizeMessage = resizeMessage.replace("{Sender_Id}", this.senderId);
         resizeMessage = resizeMessage.replace("{Height}", newHeight);
 
-        window.parent.postMessage(resizeMessage, "*");
+        window.parent.postMessage(resizeMessage, this.hostURL);
     }
 }
 
@@ -126,8 +128,7 @@ function getQueryStringParameter(urlParameterKey) {
                     // starta animation för väderikoner
                     skycons.play();
 
-                    // starta responsive part
-                    Responsive.Part.init();
+                    
                 }
                 else {
                     $("#response").text(errorMessage);
@@ -135,6 +136,8 @@ function getQueryStringParameter(urlParameterKey) {
             }
         });
     }
+    // starta responsive part
+    Responsive.Part.init();
 }());
 
 function getBody(weatherData, getUnit) {
