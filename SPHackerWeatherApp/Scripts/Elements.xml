@@ -17,5 +17,6 @@
     <File Path="Scripts\Chart.min.js" Url="Scripts/Chart.min.js" ReplaceContent="TRUE" />
     <File Path="Scripts\fullPageApp.js" Url="Scripts/fullPageApp.js" ReplaceContent="TRUE" />
     <File Path="Scripts\fullPageApp.min.js" Url="Scripts/fullPageApp.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\weatherTestData.js" Url="Scripts/weatherTestData.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>
