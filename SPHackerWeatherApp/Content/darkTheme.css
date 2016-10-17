@@ -5,3 +5,7 @@
 #AppPartFooter>*{
     border-color: tomato;
 }
+
+#compass {
+    color: tomato;
+}

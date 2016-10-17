@@ -157,8 +157,8 @@ function getBody(weatherData, getUnit) {
         windSpeed = windSpeed / 2.236936;
     }
 
-    body = "<div><h4> " + temperatur.toFixed(1) + "" + unitSymbol + " " + weatherSummary + "</h4></div>" +
-           "<div><h4>Vind: " + windSpeed.toFixed(0) + " " + windspeedSymbol + "" + windIcon + "</h4></div>";
+    body = "<div><h1><strong> " + temperatur.toFixed(1) + "" + unitSymbol + " " + weatherSummary + "</strong></h1></div>" +
+           "<div><h2><strong>Vind: " + windSpeed.toFixed(0) + " " + windspeedSymbol + "" + windIcon + "</strong></h2></div>";
 
     //rita upp korrekt väderikon för väderleken
     skycons.add(document.getElementById("icon1"), weatherData.icon);
