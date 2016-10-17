@@ -48,6 +48,9 @@ function getQueryStringParameter(urlParameterKey) {
 
             if (errorMessage === "") {
                 weatherObject = weatherTemp;
+                localStorage.setItem("weatherCurrently", JSON.stringify(weatherObject.currently));
+                localStorage.setItem("weatherPerHour", JSON.stringify(weatherObject.hourly.data));
+                localStorage.setItem("weatherForecast", JSON.stringify(weatherObject.daily.data));
 
                 var time = new Date(weatherObject.currently.time);
                 var todayDate = moment.unix(time).format("llll");

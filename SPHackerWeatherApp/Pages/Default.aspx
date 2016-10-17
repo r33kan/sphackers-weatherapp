@@ -46,7 +46,7 @@
 
         <div id="details" class="container">
             <div class="well well-lg">
-                <canvas id="weatherIcon" width="128" height="128"></canvas>
+                <canvas id="weatherIcon"></canvas>
                 <div id="detailsData"></div>
             </div>
 
