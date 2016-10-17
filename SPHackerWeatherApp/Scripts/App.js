@@ -1,9 +1,41 @@
-﻿//Mattias key
+﻿"use strict";
+
+//Mattias key
 var secretKey = "629b0a384ddac75d1c1fa827e8846375/";
 //Johans key
 //var secretKey = "1d2a1962f482ae789c15b56b59b526d7";
 var iconColor = "black";
 var skycons = new Skycons({ "color": iconColor });
+
+//kontrollera om rutan har ett Responsive attribut, skapa ett om false
+window.Responsive = window.Responsive || {};
+
+Responsive.Part = {
+    senderId: '',
+    init: function () {
+        // Retrieve required params
+        var params = document.URL.split("?")[1].split("&");
+        for (i = 0; i < params.length; i++) {
+            var param = params[i].split("=");
+            if (param[0].toLowerCase() == "senderid") {
+                this.senderId = decodeURIComponent(param[1]);
+            }
+        }
+        this.adjustSize();
+    },
+    adjustSize: function () {
+        var step = 30,
+            newHeight,
+            contentHeight = $('#AppPartContent').height(),
+            resizeMessage = '<Message senderId={Sender_Id}>resize(100%, {Height})</Message>';
+
+        newHeight = (step - (contentHeight % step)) + contentHeight;
+        resizeMessage = resizeMessage.replace("{Sender_Id}", this.senderId);
+        resizeMessage = resizeMessage.replace("{Height}", newHeight);
+
+        window.parent.postMessage(resizeMessage, "*");
+    }
+}
 
 function getQueryStringParameter(urlParameterKey) {
     var params = document.URL.split('?')[1].split('&');
@@ -93,6 +125,9 @@ function getQueryStringParameter(urlParameterKey) {
 
                     // starta animation för väderikoner
                     skycons.play();
+
+                    // starta responsive part
+                    Responsive.Part.init();
                 }
                 else {
                     $("#response").text(errorMessage);
@@ -100,38 +135,7 @@ function getQueryStringParameter(urlParameterKey) {
             }
         });
     }
-    ResizeApp();
 }());
-
-function getBodyHeight() {
-    var D = document;
-    return Math.max(
-        D.body.scrollHeight, D.documentElement.scrollHeight,
-        D.body.offsetHeight, D.documentElement.offsetHeight,
-        D.body.clientHeight, D.documentElement.clientHeight
-    );
-}
-
-function ResizeApp() {
-    // Retrieve required params
-    var senderId;
-    var hostUrl = null;
-    var params = document.URL.split("?")[1].split("&");
-    var param;
-    var bodyheight = getBodyHeight();
-
-    for (i = 0; i < params.length; i = i + 1) {
-        param = params[i].split("=");
-        if (hostUrl == null) {
-            hostUrl = decodeURIComponent(param[1]);
-        }
-        else if (i == (params.length - 1)) {
-            senderId = decodeURIComponent(param[1]);
-        }
-    }
-    //use postmessage to resize the app part.     
-    var message = "<Message senderId=" + senderId + " >" + "resize(100%," + bodyheight + ")</Message>"; window.parent.postMessage(message, hostUrl);
-}
 
 function getBody(weatherData, getUnit) {
     getUnit = parseInt(getUnit);
@@ -149,7 +153,7 @@ function getBody(weatherData, getUnit) {
     var windSpeed = parseFloat(weatherData.windSpeed);
 
     if (isCelsius) {
-        temperatur = (temperatur - 32) / 1.8000;
+        temperatur = getCelsius(temperatur);
         windSpeed = windSpeed / 2.236936;
     }
 
