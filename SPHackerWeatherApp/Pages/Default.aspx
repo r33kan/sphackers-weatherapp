@@ -11,22 +11,18 @@
     <SharePoint:ScriptLink Name="sp.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" />
     <meta name="WebPartPageExpansion" content="full" />
 
-    <%--Javascriptbibliotek--%>
+    <!--Javascriptbibliotek-->
     <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/moment-with-locales.min.js"></script>
     <script src="../Scripts/Chart.min.js"></script>
     <script src="../Scripts/skycons.js"></script>
 
-    <%--CSS bibliotek--%>
+    <!--CSS bibliotek-->
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
 
-    <%--Egen CSS--%>
+    <!--Egen CSS-->
     <link rel="Stylesheet" type="text/css" href="../Content/App.css" />
     <link href="../Content/fullPageStyle.css" rel="stylesheet" />
-</asp:Content>
-
-<asp:Content ContentPlaceHolderID="PlaceHolderPageTitleInTitleArea" runat="server">
-    
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="PlaceHolderMain" runat="server">
@@ -48,43 +44,39 @@
 
         <div id="response"></div>
 
-        <div id="details" class="container-fluid">
+        <div id="details" class="container">
             <div class="well well-lg">
-                <h1>Idag</h1>
-                <canvas id="weatherIcon"></canvas>
-            </div>
-                
-            <div class="well well-lg">
-                <h1>Detaljer</h1>
+                <canvas id="weatherIcon" width="128" height="128"></canvas>
                 <div id="detailsData"></div>
             </div>
 
-<%--            <div class="panel panel-default">
+            <div class="panel panel-default">
                 <div class="panel-heading">Panel heading</div>
                 <div class="panel-body">
-            </div>--%>
+                </div>
 
-
-        </div>
-
-        <div id="tempGraf" class="container" hidden="true">
-            <div>
-                <canvas id="todayChart" width="20" height="10"></canvas>
 
             </div>
-        </div>
 
-        <div id="forecastGraf" class="container" hidden="true">
-            <div id="tempChart">
-                <canvas id="forecastChart" width="20" height="10"></canvas>
+            <div id="tempGraf" class="container" hidden="true">
+                <div>
+                    <canvas id="todayChart" width="20" height="10"></canvas>
+
+                </div>
             </div>
-        </div>
 
-        <div id="about" class="container" hidden="true">
-            about
+            <div id="forecastGraf" class="container" hidden="true">
+                <div id="tempChart">
+                    <canvas id="forecastChart" width="20" height="10"></canvas>
+                </div>
+            </div>
+
+            <div id="about" class="container" hidden="true">
+                about
+            </div>
         </div>
     </div>
 
-        <%--Egen JavaScript--%>
+    <!--Egen JavaScript-->
     <script src="../Scripts/fullPageApp.js"></script>
 </asp:Content>
