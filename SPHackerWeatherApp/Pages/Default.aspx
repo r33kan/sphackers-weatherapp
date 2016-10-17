@@ -25,6 +25,10 @@
     <link href="../Content/fullPageStyle.css" rel="stylesheet" />
 </asp:Content>
 
+<asp:Content ContentPlaceHolderID="PlaceHolderPageTitleInTitleArea" runat="server">
+    
+</asp:Content>
+
 <asp:Content ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
     <div class="container-fluid">
@@ -44,16 +48,21 @@
 
         <div id="response"></div>
 
-        <div id="details" class="container">
+        <div id="details" class="container-fluid">
             <div class="well well-lg">
-                <canvas id="weatherIcon" width="128" height="128"></canvas>
+                <h1>Idag</h1>
+                <canvas id="weatherIcon"></canvas>
+            </div>
+                
+            <div class="well well-lg">
+                <h1>Detaljer</h1>
                 <div id="detailsData"></div>
             </div>
 
-            <div class="panel panel-default">
+<%--            <div class="panel panel-default">
                 <div class="panel-heading">Panel heading</div>
                 <div class="panel-body">
-            </div>
+            </div>--%>
 
 
         </div>
