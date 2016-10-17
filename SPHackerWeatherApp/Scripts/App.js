@@ -153,11 +153,9 @@ function getBody(weatherData, getUnit) {
     var windspeedSymbol = getWindSpeedUnit(getUnit);
 
     var temperatur = parseFloat(weatherData.temperature);
-    //var time = new Date(weatherData.time);
     var todayDate = moment.unix(weatherData.time).format("llll");
     var windIcon = "<img id='compass' src='../Images/weathericons/compass.svg'></img>";
     var weatherSummary = weatherData.summary;
-    //var windBearing = translatewindBearing(weatherData.windBearing);
     var windSpeed = parseFloat(weatherData.windSpeed);
 
     if (isCelsius) {
