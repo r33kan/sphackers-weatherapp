@@ -91,7 +91,7 @@ function getQueryStringParameter(urlParameterKey) {
         $("#AppPartHeaderDateDisplay").text(todayDate);
         $("#AppPartBodySummary").html(body);
 
-        getWindDirection(weatherObject.windBearing);
+        getWindDirection(weatherObject.currently.windBearing);
         // starta animation för väderikoner
         skycons.play();
     }
@@ -128,6 +128,7 @@ function getQueryStringParameter(urlParameterKey) {
                     $("#AppPartHeaderDateDisplay").text(todayDate);
                     $("#AppPartBodySummary").html(body);
 
+                    getWindDirection(weatherObject.currently.windBearing);
                     // starta animation för väderikoner
                     skycons.play();
 
@@ -156,7 +157,7 @@ function getBody(weatherData, getUnit) {
     var todayDate = moment.unix(weatherData.time).format("llll");
     var windIcon = "<img id='compass' src='../Images/weathericons/compass.svg'></img>";
     var weatherSummary = weatherData.summary;
-    var windBearing = translatewindBearing(weatherData.windBearing);
+    //var windBearing = translatewindBearing(weatherData.windBearing);
     var windSpeed = parseFloat(weatherData.windSpeed);
 
     if (isCelsius) {
@@ -165,7 +166,7 @@ function getBody(weatherData, getUnit) {
     }
 
     body = "<div><h4> " + temperatur.toFixed(1) + "" + unitSymbol + " " + weatherSummary + "</h4></div>" +
-           "<div><p>Vindriktning: " + windIcon + " " + windBearing + " Vindhastighet: " + windSpeed.toFixed(0) + " " + windspeedSymbol + "</p></div>";
+           "<div><h4>Vind: " + windSpeed.toFixed(0) + " " + windspeedSymbol + "" + windIcon + "</h4></div>";
 
     //rita upp korrekt väderikon för väderleken
     skycons.add(document.getElementById("icon1"), weatherData.icon);
@@ -349,29 +350,31 @@ function setLocation(location) {
 }
 
 //översätt vindriktning
-function translatewindBearing(input) {
-    "use strict";
+//function translatewindBearing(input) {
+//    "use strict";
 
-    var value = parseInt(input);
-    var windBearing = "";
+//    var value = parseInt(input);
+//    var windBearing = "";
 
-    if (value === 0) { windBearing = "nordlig"; }
-    else if (value > 0 && value <= 45) { windBearing = "nord / nordost"; }
-    else if (value > 45 && value < 90) { windBearing = "ost / nordost"; }
-    else if (value > 90 && value < 180) { windBearing = "syd / sydost"; }
-    else if (value === 180) { windBearing = "sydlig"; }
-    else if (value > 180 && value < 270) { windBearing = "syd / sydväst"; }
-    else if (value === 270) { windBearing = "västlig"; }
-    else if (value > 270 && value < 360) { windBearing = "nord / nordväst"; }
-    else { return "vindstilla"; }
+//    if (value === 0) { windBearing = "nordlig"; }
+//    else if (value > 0 && value <= 45) { windBearing = "nord / nordost"; }
+//    else if (value > 45 && value < 90) { windBearing = "ost / nordost"; }
+//    else if (value > 90 && value < 180) { windBearing = "syd / sydost"; }
+//    else if (value === 180) { windBearing = "sydlig"; }
+//    else if (value > 180 && value < 270) { windBearing = "syd / sydväst"; }
+//    else if (value === 270) { windBearing = "västlig"; }
+//    else if (value > 270 && value < 360) { windBearing = "nord / nordväst"; }
+//    else { return "vindstilla"; }
 
-    localStorage.setItem("windBearing", windBearing);
-    return windBearing;
-}
+//    localStorage.setItem("windBearing", windBearing);
+//    return windBearing;
+//}
 
+// justera kompassnål till vindriktning
 function getWindDirection(direction) {
-
+    console.log(direction);
     direction = parseInt(direction);
-
+    
+    console.log("getWindDirection: ", direction);
     $("#compass").rotate(direction);
 }
