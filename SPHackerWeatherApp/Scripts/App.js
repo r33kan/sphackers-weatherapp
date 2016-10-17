@@ -48,7 +48,9 @@ function getQueryStringParameter(urlParameterKey) {
 
             if (errorMessage === "") {
                 weatherObject = weatherTemp;
-
+                localStorage.setItem("weatherCurrently", JSON.stringify(weatherObject.currently));
+                localStorage.setItem("weatherPerHour", JSON.stringify(weatherObject.hourly.data));
+                localStorage.setItem("weatherForecast", JSON.stringify(weatherObject.daily.data));
                 localStorage.setItem("weatherData", JSON.stringify(weatherObject));
 
                 var time = new Date(weatherObject.currently.time);
@@ -71,10 +73,37 @@ function getQueryStringParameter(urlParameterKey) {
             }
         }
     });
+    ResizeApp();
 }());
 
-function getCelsius(temp) {
-    return (temp - 32) / 1.8000;
+function getBodyHeight() {
+    var D = document;
+    return Math.max(
+        D.body.scrollHeight, D.documentElement.scrollHeight,
+        D.body.offsetHeight, D.documentElement.offsetHeight,
+        D.body.clientHeight, D.documentElement.clientHeight
+    );
+}
+
+function ResizeApp() {
+    // Retrieve required params
+    var senderId;
+    var hostUrl = null;
+    var params = document.URL.split("?")[1].split("&");
+    var param;
+    var bodyheight = getBodyHeight();
+
+    for (i = 0; i < params.length; i = i + 1) {
+        param = params[i].split("=");
+        if (hostUrl == null) {
+            hostUrl = decodeURIComponent(param[1]);
+        }
+        else if (i == (params.length - 1)) {
+            senderId = decodeURIComponent(param[1]);
+        }
+    }
+    //use postmessage to resize the app part.     
+    var message = "<Message senderId=" + senderId + " >" + "resize(100%," + bodyheight + ")</Message>"; window.parent.postMessage(message, hostUrl);
 }
 
 function getBody(weatherData, getUnit) {
@@ -159,12 +188,14 @@ function getUnitSymbol(unit) {
     var symbol = "";
 
     switch (unit) {
-        case 1:
+        case 1: {
             symbol = "&deg;C";
             break;
-        case 2:
+        }
+        case 2: {
             symbol = "&deg;F";
             break;
+        }
     }
 
     localStorage.setItem("unitSymbol", symbol);
@@ -179,12 +210,14 @@ function getWindSpeedUnit(unit) {
     var symbol = "";
 
     switch (unit) {
-        case 1:
+        case 1: {
             symbol = "m/s";
             break;
-        case 2:
+        }
+        case 2: {
             symbol = "MPH";
             break;
+        }
     }
 
     localStorage.setItem("windspeedSymbol", symbol);
@@ -192,57 +225,6 @@ function getWindSpeedUnit(unit) {
 }
 
 // hämta väderrapport för kommande dagar
-//function listForecast(weatherForecast, getUnit) {
-//    getUnit = parseInt(getUnit);
-
-//    var canvas = "";
-//    var day = "";
-//    var forecastDay = "";
-//    var forecastTemp = "";
-//    var unit = getUnitSymbol(getUnit);
-//    var index = "";
-//    var isCelcius = (getUnit === 1) ? true : false;
-//    var maxTemp = "";
-//    var minTemp = "";
-
-//    // är celsius valt som enhet loopa igenom forecast för nästkommande dagar börja på värde 1 = imorgon och totalt 5 dagar fram
-//    if (isCelcius) {
-//        for (index = 1; index <= 5; index++) {
-//            day = moment.unix(weatherForecast[index].time).format("dddd");
-//            minTemp = (parseFloat(weatherForecast[index].temperatureMin) - 32) / 1.8000;
-//            maxTemp = (parseFloat(weatherForecast[index].temperatureMax) - 32) / 1.8000;
-
-//            //variabler för att identifiera element i DOM:n
-//            canvas = "forecastCanvas" + index;
-//            forecastDay = "#forecastDay" + index;
-//            forecastTemp = "#forecastTemp" + index;
-
-//            //populera HTML-element med korrekt data
-//            $(forecastDay).html(day);
-//            skycons.add(document.getElementById(canvas), weatherForecast[index].icon);
-//            $(forecastTemp).html("<p> " + minTemp.toFixed(0) + " - " + maxTemp.toFixed(0) + "" + unit + "</p>");
-//        }
-//    }
-//        // om Fahrenheit är valt som enhet loopa igenom forecast för nästkommande dagar börja på värde 1 = imorgon och totalt 5 dagar fram
-//    else {
-//        for (index = 1; index <= 5; index++) {
-//            day = moment.unix(weatherForecast[index].time).format("dddd");
-//            minTemp = parseFloat(weatherForecast[index].temperatureMin);
-//            maxTemp = parseFloat(weatherForecast[index].temperatureMax);
-
-//            //variabler för att identifiera element i DOM:n
-//            canvas = "forecastCanvas" + index;
-//            forecastDay = "#forecastDay" + index;
-//            forecastTemp = "#forecastTemp" + index;
-
-//            //populera HTML-element med korrekt data
-//            $(forecastDay).html(day);
-//            skycons.add(document.getElementById(canvas), weatherForecast[index].icon);
-//            $(forecastTemp).html("<p> " + minTemp.toFixed(0) + " - " + maxTemp.toFixed(0) + "" + unit + "</p>");
-//        }
-//    }
-//}
-
 function listForecast(weatherForecast, getUnit) {
     getUnit = parseInt(getUnit);
 
@@ -274,6 +256,10 @@ function listForecast(weatherForecast, getUnit) {
         skycons.add(document.getElementById(canvas), weatherForecast[index].icon);
         $(forecastTemp).html("<p><span class='minTemp'>" + minTemp.toFixed(0) + "</span> - <span class='maxTemp'>" + maxTemp.toFixed(0) + "</span>" + unit + "</p>");
     }
+}
+
+function getCelsius(temp) {
+    return (temp - 32) / 1.8000;
 }
 
 //sätt vilken stad som väderdata ska hämtas för
@@ -322,24 +308,12 @@ function setLocation(location) {
     return position;
 }
 
-// översätt vindriktning
+//översätt vindriktning
 function translatewindBearing(input) {
     "use strict";
 
     var value = parseInt(input);
     var windBearing = "";
-    //switch (value) {
-    //    case 0: { return "nordlig"; }
-    //    case value > 0 && value < 45: { return "nord / nordost"; }
-    //    case value > 45 && value < 90: { return "ost / nordost"; }
-    //    case 90: { return "östlig"; }
-    //    case value > 90 && value < 180: { return "syd / sydost"; }
-    //    case 180: { return "sydlig"; }
-    //    case value > 180 && value < 270: { return "syd / sydväst"; }
-    //    case 270: { return "västlig"; }
-    //    case value > 270 && value < 360: { return "nord / nordväst"; }
-    //    default: { return "vindstilla"; }
-    //}
 
     if (value === 0) { windBearing = "nordlig"; }
     else if (value > 0 && value <= 45) { windBearing = "nord / nordost"; }
@@ -354,4 +328,3 @@ function translatewindBearing(input) {
     localStorage.setItem("windBearing", windBearing);
     return windBearing;
 }
-
