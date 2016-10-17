@@ -18,5 +18,6 @@
     <ProjectItemFile Source="Chart.min.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="fullPageApp.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="fullPageApp.min.js" Target="Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="weatherTestData.js" Target="Scripts\" Type="ElementFile" />
   </Files>
 </ProjectItem>
