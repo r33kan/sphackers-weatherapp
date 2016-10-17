@@ -58,14 +58,16 @@
 
             </div>
 
-            <div id="tempGraf" class="container" hidden="true">
+            <div id="tempGraf" class="container">
+                <h1>Temperatur timme för timme idag</h1>
                 <div>
                     <canvas id="todayChart" width="20" height="10"></canvas>
 
                 </div>
             </div>
 
-            <div id="forecastGraf" class="container" hidden="true">
+            <div id="forecastGraf" class="container">
+                <h1>Temperaturprognos kommande 5 dagar</h1>
                 <div id="tempChart">
                     <canvas id="forecastChart" width="20" height="10"></canvas>
                 </div>

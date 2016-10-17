@@ -2,33 +2,33 @@
 var iconColor = "black";
 var skycons = new Skycons({ "color": iconColor });
 
-$("#navDetails").click(function () {
-    $("#details").show();
-    $("#tempGraf").hide();
-    $("#forecastGraf").hide();
-    $("#about").hide();
-});
+//$("#navDetails").click(function () {
+//    $("#details").show();
+//    $("#tempGraf").hide();
+//    $("#forecastGraf").hide();
+//    $("#about").hide();
+//});
 
-$("#navTempGraf").click(function () {
-    $("#details").hide();
-    $("#tempGraf").show();
-    $("#forecastGraf").hide();
-    $("#about").hide();
-});
+//$("#navTempGraf").click(function () {
+//    $("#details").hide();
+//    $("#tempGraf").show();
+//    $("#forecastGraf").hide();
+//    $("#about").hide();
+//});
 
-$("#navForecastGraf").click(function () {
-    $("#details").hide();
-    $("#tempGraf").hide();
-    $("#forecastGraf").show();
-    $("#about").hide();
-});
+//$("#navForecastGraf").click(function () {
+//    $("#details").hide();
+//    $("#tempGraf").hide();
+//    $("#forecastGraf").show();
+//    $("#about").hide();
+//});
 
-$("#navAbout").click(function () {
-    $("#details").hide();
-    $("#tempGraf").hide();
-    $("#forecastGraf").hide();
-    $("#about").show();
-});
+//$("#navAbout").click(function () {
+//    $("#details").hide();
+//    $("#tempGraf").hide();
+//    $("#forecastGraf").hide();
+//    $("#about").show();
+//});
 
 (function () {
     "user strict";
@@ -44,17 +44,15 @@ $("#navAbout").click(function () {
     var weatherData = JSON.parse(localWeatherData);
 
 
-    var localWeatherCurrently = localStorage.getItem("weatherCurrently");
-    var weatherCurrently = JSON.parse(localWeatherCurrently);
+    //var localWeatherCurrently = localStorage.getItem("weatherCurrently");
+    //var weatherCurrently = JSON.parse(localWeatherCurrently);
 
-    var localWeatherPerHour = localStorage.getItem("weatherPerHour");
-    var weatherPerHour = JSON.parse(localWeatherPerHour);
+    //var localWeatherPerHour = localStorage.getItem("weatherPerHour");
+    //var weatherPerHour = JSON.parse(localWeatherPerHour);
 
-    var localWeatherForecast = localStorage.getItem("weatherForecast");
-    var weatherForecast = JSON.parse(localWeatherForecast);
+    //var localWeatherForecast = localStorage.getItem("weatherForecast");
+    //var weatherForecast = JSON.parse(localWeatherForecast);
 
-    console.log("testar local storage");
-    console.log(weatherCurrently);
        
     
     // $.ajax({
@@ -195,8 +193,9 @@ function setLocation(location) {
 
 function showTempChart(data) {
     "use strict";
-
+    var unit = parseInt(localStorage.getItem("unit"));
     var weatherToday = data.hourly.data;
+    var isCelsius = (unit === 1) ? true : false;
 
     var foreCastDay = moment.unix(weatherToday[0].time).format("dddd");
     var index = 0;
@@ -205,14 +204,29 @@ function showTempChart(data) {
     var timeNow = moment.unix(data.currently.time).format("dddd");
 
     // hämta temperatur / timme för innevarande dag
-    while (timeNow === foreCastDay) {
 
-        time.push(moment.unix(weatherToday[index].time).format("LT"));
-        temperatur.push(weatherToday[index].temperature);
+    if (isCelsius) {
+        while (timeNow === foreCastDay) {
 
-        foreCastDay = moment.unix(weatherToday[index].time).format("dddd");
-        index++;
+            time.push(moment.unix(weatherToday[index].time).format("LT"));
+            temperatur.push((weatherToday[index].temperature - 32 ) / 1.800);
+
+            foreCastDay = moment.unix(weatherToday[index].time).format("dddd");
+            index++;
+        }
     }
+    else {
+        while (timeNow === foreCastDay) {
+
+            time.push(moment.unix(weatherToday[index].time).format("LT"));
+            temperatur.push(weatherToday[index].temperature);
+
+            foreCastDay = moment.unix(weatherToday[index].time).format("dddd");
+            index++;
+        }
+    }
+
+    
 
     // hitta elementet att rita upp grafen i
     var ctx = $("#todayChart");
@@ -275,14 +289,29 @@ function forecastTempChart(data) {
     var minTemp = [];
     var maxTemp = [];
     var day = [];
+    var unit = parseInt(localStorage.getItem("unit"));
+    var isCelsius = (unit === 1) ? true : false;
+
 
     console.log("forecastTempChart");
-    for (var index = 1; index <= 5; index++) {
 
-        minTemp.push(data[index].temperatureMin);
-        maxTemp.push(data[index].temperatureMax);
-        day.push(moment.unix(data[index].time).format("dddd"));
+    if (isCelsius) {
+        for (var index = 1; index <= 5; index++) {
+
+            minTemp.push((data[index].temperatureMin - 32) / 1.800);
+            maxTemp.push((data[index].temperatureMax - 32) / 1.800);
+            day.push(moment.unix(data[index].time).format("dddd"));
+        }
     }
+    else {
+        for (var index = 1; index <= 5; index++) {
+
+            minTemp.push(data[index].temperatureMin);
+            maxTemp.push(data[index].temperatureMax);
+            day.push(moment.unix(data[index].time).format("dddd"));
+        }
+    }
+
 
     var ctx = $("#forecastChart");
     console.log(minTemp);
