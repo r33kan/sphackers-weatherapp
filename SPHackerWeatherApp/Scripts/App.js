@@ -60,6 +60,7 @@ function getQueryStringParameter(urlParameterKey) {
 
     var getTheme = getQueryStringParameter("contosoTheme");
     localStorage.setItem("theme", getTheme);
+
     // variabler för att sköta cachning mot localstorage
     var newDate = new Date();
     var currentTime = moment(newDate).format("YYYY-MM-dd");
@@ -71,9 +72,10 @@ function getQueryStringParameter(urlParameterKey) {
     var header = "";
     var weatherObject = {};
     var weatherTemp = "";
+
+    // hämta aktuellt tema för appen
     setTheme(getTheme);
 
-    
 
     if (currentTime === updateTime) {
         weatherTemp = localStorage.getItem("weatherData");
@@ -85,7 +87,7 @@ function getQueryStringParameter(urlParameterKey) {
         //skapa html-element för body på app part
         body = getBody(weatherObject.currently, getUnit);
 
-        // hämta forecast för nästkommande 5 dagar
+        // hämta väderprognos för nästkommande 5 dagar
         listForecast(weatherObject.daily.data, getUnit);
 
         $("#AppPartHeaderDateDisplay").text(todayDate);
@@ -374,30 +376,10 @@ function setLocation(location) {
     return position;
 }
 
-//översätt vindriktning
-//function translatewindBearing(input) {
-//    "use strict";
-
-//    var value = parseInt(input);
-//    var windBearing = "";
-
-//    if (value === 0) { windBearing = "nordlig"; }
-//    else if (value > 0 && value <= 45) { windBearing = "nord / nordost"; }
-//    else if (value > 45 && value < 90) { windBearing = "ost / nordost"; }
-//    else if (value > 90 && value < 180) { windBearing = "syd / sydost"; }
-//    else if (value === 180) { windBearing = "sydlig"; }
-//    else if (value > 180 && value < 270) { windBearing = "syd / sydväst"; }
-//    else if (value === 270) { windBearing = "västlig"; }
-//    else if (value > 270 && value < 360) { windBearing = "nord / nordväst"; }
-//    else { return "vindstilla"; }
-
-//    localStorage.setItem("windBearing", windBearing);
-//    return windBearing;
-//}
-
-// justera kompassnål till vindriktning
+// justera kompassnål till aktuell vindriktning
 function getWindDirection(direction) {
     direction = parseInt(direction);
     
+    // använder jQuery extensionen rotate för att rotera kompass-bilden
     $("#compass").rotate(direction);
 }
