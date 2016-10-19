@@ -224,8 +224,8 @@
         jQuery('#ozone').html(details.ozone);
         jQuery('#windSpeed').html(details.windSpeed.toFixed(0));
         //jQuery('#windBearing').html(details.windBearing);
-        jQuery('#humidity').html(details.humidity);
-        jQuery('#pressure').html(details.humidity);
+        jQuery('#humidity').html(details.humidity * 100);
+        jQuery('#pressure').html(details.pressure);
     })
 })
 

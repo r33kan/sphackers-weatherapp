@@ -48,10 +48,10 @@
             <li><a id="detailsTab">Detaljerad info</a></li>
         </ul>
      </div>
-    <div id="perHour">
+    <div id="perHour" class="conatiner">
         <canvas id="perHourChart" ></canvas>
     </div>
-      <div id="minMax">
+      <div id="minMax" class="container">
            <canvas id="minMaxTemp"></canvas>
       </div>
     <div id="details" class="container">
@@ -62,8 +62,8 @@
                     <th>Ozon</th>
                     <th id="windSpeedHeadline">Vindhastighet</th>
                     <th>Vindriktning</th>
-                    <th>Luftfuktighet</th>
-                    <th>Lufttryck</th>
+                    <th>Luftfuktighet %</th>
+                    <th>Lufttryck hpa</th>
                   </tr>
                 </thead>
                 <tbody>
