@@ -39,7 +39,7 @@
             <li><a id="detailsTab">Detaljerad info</a></li>
         </ul>
     </div>
-    <div id="perHour" class="conatiner">
+    <div id="perHour" class="container">
         <canvas id="perHourChart"></canvas>
     </div>
     <div id="minMax" class="container">
