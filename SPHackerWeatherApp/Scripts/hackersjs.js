@@ -27,9 +27,10 @@ $(function () {
         showDetails(getUnit, details);
     });
     
+    //När sidan har laddats visa detaljerna
     showDetails(getUnit, details);
 
-    //När sidan har laddats sätt kontrollvariabeln till false
+    //sätt kontrollvariabeln till false
     firstLoad = false;
 });
 
@@ -51,7 +52,6 @@ function getTempSymbol(unit) {
 }
 
 function getWindSymbol(unit) {
-
     unit = parseInt(unit);
 
     switch (unit) {
@@ -131,7 +131,7 @@ function showMinMax(getUnit, mmt) {
             },
             {
                 data: maxTemp,
-                label: "Maxtemperatur",
+                label: "Högsta temperatur",
                 fill: false,
                 borderColor: "coral",
                 backgroundColor: "coral",
