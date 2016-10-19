@@ -76,7 +76,7 @@ function getQueryStringParameter(urlParameterKey) {
     // hämta aktuellt tema för appen
     setTheme(getTheme);
 
-
+    
     if (currentTime === updateTime) {
         weatherTemp = localStorage.getItem("weatherData");
         weatherObject = JSON.parse(weatherTemp);

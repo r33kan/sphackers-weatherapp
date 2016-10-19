@@ -20,5 +20,6 @@
     <ProjectItemFile Source="fullPageApp.min.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="weatherTestData.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="jQueryRotate.js" Target="Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="hackersjs.js" Target="Scripts\" Type="ElementFile" />
   </Files>
 </ProjectItem>
