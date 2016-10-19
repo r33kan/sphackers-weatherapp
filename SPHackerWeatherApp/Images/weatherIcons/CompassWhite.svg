@@ -4,7 +4,7 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
 <g>
-	<g>
+	<g stroke="white" fill="white">
 		<path fill-rule="evenodd" clip-rule="evenodd" d="M50,36.002c-7.731,0-13.999,6.268-13.999,13.998
 			c0,7.731,6.268,13.999,13.999,13.999c7.73,0,13.998-6.268,13.998-13.999C63.998,42.27,57.73,36.002,50,36.002z M50,59.999
 			c-5.522,0-9.999-4.477-9.999-9.999c0-5.521,4.477-9.998,9.999-9.998c5.521,0,9.999,4.477,9.999,9.998

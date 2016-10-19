@@ -219,6 +219,7 @@
         $("#temperaturHeadline").html("Temperatur " + tempUnit);
         getWindDirection(details.windBearing);
 
+        console.log(details.ozone);
         jQuery('#temp').html(details.temperature.toFixed(1));
         jQuery('#ozone').html(details.ozone);
         jQuery('#windSpeed').html(details.windSpeed.toFixed(0));

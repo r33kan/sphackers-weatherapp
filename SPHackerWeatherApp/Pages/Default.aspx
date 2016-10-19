@@ -54,13 +54,13 @@
       <div id="minMax">
            <canvas id="minMaxTemp"></canvas>
       </div>
-    <div id="details">
-             <table class="table">
+    <div id="details" class="container">
+                 <table class="table table-default table-responsive">
                 <thead>
                   <tr>
-                    <th id="temperaturHeadline"></th>
+                    <th id="temperaturHeadline">Temperatur</th>
                     <th>Ozon</th>
-                    <th id="windSpeedHeadline"></th>
+                    <th id="windSpeedHeadline">Vindhastighet</th>
                     <th>Vindriktning</th>
                     <th>Luftfuktighet</th>
                     <th>Lufttryck</th>
@@ -76,7 +76,8 @@
                         <td id="pressure"></td>
                     </tr>
                 </tbody>
-                </table>
+                     </table>
+         
     </div>
 
 </asp:Content>
