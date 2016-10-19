@@ -21,7 +21,7 @@
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Egen CSS -->
-    <link rel="Stylesheet" type="text/css" href="../Content/App.css" />
+    <link rel="Stylesheet" type="text/css" href="../Content/immersive.css" />
 </asp:Content>
 
 

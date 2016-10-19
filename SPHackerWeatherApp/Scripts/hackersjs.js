@@ -6,7 +6,6 @@
     var lat = 59.345013;
     var lng = 18.021977;
     var exclude = "?exclude=hourly,minutely,alerts,flags";
-    var time = [];
     var minMaxTemp;
     var perHourForecast;
     var timeArray = [];
@@ -29,21 +28,6 @@
     $("#perHour").show();
     $("#minMax").hide();
 
-    //jQuery.ajax({
-    //    url: "https://api.darksky.net/forecast/e1d9e5d4989ede70af611f5cbf8b52c9/59.345013,18.021977?callback=?&units=si",
-    //    type: 'GET',
-    //    dataType: 'jsonp'
-    //})
-    // .done(function (data) {
-
-
-    //     perHourForecast = data.hourly.data;
-    //     minMaxTemp = data.daily.data;
-    //     details = data.currently;
-    // })
-
-
-
     $("#minMaxTab").click(function () {
         $("#minMax").show();
         $("#details").hide();
@@ -53,7 +37,7 @@
         var isCelsius = (getUnit === 1) ? true : false;
 
         console.log("I minMaxTab");
-
+        var time = [];
         var minTemp = [];
         var maxTemp = [];
 
@@ -80,31 +64,22 @@
                 datasets: [{
                     label: 'Lägsta temperatur',
                     data: minTemp,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
+                    fill: false,
+                    borderColor: "lightblue",
+                    backgroundColor: "lightblue",
+                    pointBorderColor: "blue",
+                    pointBackgroundColor: "blue",
+                    pointBorderWidth: 1
                 },
                 {
                     data: maxTemp,
                     label: "Maxtemperatur",
-                    fillColor: "rgba(220,220,220,0.5)",
-                    strokeColor: "rgba(220,220,220,0.8)",
-                    highlightFill: "rgba(220,220,220,0.75)",
-                    highlightStroke: "rgba(220,220,220,1)",
+                    fill: false,
+                    borderColor: "red",
+                    backgroundColor: "red",
+                    pointBorderColor: "tomato",
+                    pointBackgroundColor: "tomato",
+                    pointBorderWidth: 1,
                     showTooltip: false,
                 }]
             }
@@ -166,23 +141,12 @@
                 datasets: [{
                     label: 'Temperatur per timme under senaste dygnet',
                     data: perHourTemp,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
+                    fill: false,
+                    borderColor: "lightgreen",
+                    backgroundColor: "lightgreen",
+                    pointBorderColor: "green",
+                    pointBackgroundColor: "green",
+                    pointBorderWidth: 1
                 }]
             },
             options: {

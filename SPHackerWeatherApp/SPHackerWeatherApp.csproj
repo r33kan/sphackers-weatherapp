@@ -64,6 +64,7 @@
     </Content>
     <Content Include="Content\darkTheme.css" />
     <Content Include="Content\fullPageStyle.css" />
+    <Content Include="Content\immersive.css" />
     <Content Include="Content\lightTheme.css" />
     <Content Include="Content\spBlue.css" />
     <Content Include="Elements.xml" />

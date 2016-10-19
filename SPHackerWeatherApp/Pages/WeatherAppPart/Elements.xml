@@ -12,7 +12,7 @@
     <Properties>
       <Property Name="contosoLocation"
                 Type="enum"
-                RequiresDesignerPermission="true"
+                RequiresDesignerPermission="false"
                 WebCategory="Location"
                 WebDisplayName="välj plats för väderrapport"
                 DefaultValue="1"

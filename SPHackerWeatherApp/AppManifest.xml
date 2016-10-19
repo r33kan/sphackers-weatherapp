@@ -8,7 +8,7 @@
 >
   <Properties>
     <Title>SPHackerWeatherApp</Title>
-    <StartPage>~appWebUrl/Pages/Default.aspx?{StandardTokens}</StartPage>
+    <StartPage>~appWebUrl/Pages/WeatherAppPart.aspx?{StandardTokens}</StartPage>
   </Properties>
 
   <AppPrincipal>

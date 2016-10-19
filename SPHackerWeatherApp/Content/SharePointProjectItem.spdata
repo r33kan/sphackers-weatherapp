@@ -15,5 +15,6 @@
     <ProjectItemFile Source="spBlue.css" Target="Content\" Type="ElementFile" />
     <ProjectItemFile Source="lightTheme.css" Target="Content\" Type="ElementFile" />
     <ProjectItemFile Source="fullPageStyle.css" Target="Content\" Type="ElementFile" />
+    <ProjectItemFile Source="immersive.css" Target="Content\" Type="ElementFile" />
   </Files>
 </ProjectItem>
