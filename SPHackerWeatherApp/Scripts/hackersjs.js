@@ -208,16 +208,18 @@
 
         if (isCelsius) {
             details.temperature = getCelsius(details.temperature);
+            details.windSpeed = details.windSpeed / 2.236936;
         }
 
         var windUnit = getWindSymbol(getUnit);
         var tempUnit = getTempSymbol(getUnit);
 
 
-
+        $("#windSpeedHeadline").text("Vindhastighet " + windUnit);
+        $("#windSpeedHeadline").text("Temperatur " + tempUnit);
         jQuery('#temp').html(details.temperature.toFixed(1));
         jQuery('#ozone').html(details.ozone);
-        jQuery('#windSpeed').html(details.windSpeed);
+        jQuery('#windSpeed').html(details.windSpeed.toFixed(0));
         jQuery('#windBearing').html(details.windBearing);
         jQuery('#humidity').html(details.humidity);
         jQuery('#pressure').html(details.humidity);

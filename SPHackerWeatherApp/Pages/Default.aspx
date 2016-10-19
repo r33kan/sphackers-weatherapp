@@ -57,9 +57,9 @@
              <table class="table">
                 <thead>
                   <tr>
-                    <th>Temperatur</th>
+                    <th id="temperaturHeadline"></th>
                     <th>Ozon</th>
-                    <th>Vindhastighet</th>
+                    <th id="windSpeedHeadline"></th>
                     <th>Vindriktning</th>
                     <th>Fuktighet</th>
                     <th>Lufttryck</th>
