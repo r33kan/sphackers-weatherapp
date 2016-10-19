@@ -71,23 +71,6 @@
             }
         }
 
-
-
-        //for (var i = 0; i < 7; i++) {
-        //    time[i] = moment.unix(minMaxTemp[i].time).format("dddd");
-        //    console.log("time i MinMax: " + time[i]);
-        //}
-
-        //for (var i = 0; i < 7; i++) {
-        //    minTemp[i] = minMaxTemp[i].temperatureMin;
-        //    console.log("Dag " + i + "min" + minTemp[i])
-        //}
-
-        //for (var i = 0; i < 7; i++) {
-        //    maxTemp[i] = minMaxTemp[i].temperatureMax;
-        //    console.log("Dag " + i + "max" + maxTemp[i])
-        //}
-
         var ctx = document.getElementById("minMaxTemp");
 
         var myChart = new Chart(ctx, {
@@ -173,16 +156,6 @@
             foreCastDay = moment.unix(perHourForecast[index].time).format("dddd");
             index++;
         }
-
-        //for (var i = 0; i < 24; i++) {
-        //    time[i] = moment.unix(perHourForecast[i].time).format("HH");
-        //    console.log(time[i])
-        //}
-
-        //for (var i = 0; i < 24; i++) {
-        //    perHourTemp[i] = perHourForecast[i].temperature;
-        //    console.log(perHourTemp[i])
-        //}
 
         var ctxPerHour = document.getElementById("perHourChart");
 
