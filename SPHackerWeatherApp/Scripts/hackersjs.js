@@ -216,11 +216,13 @@
 
 
         $("#windSpeedHeadline").text("Vindhastighet " + windUnit);
-        $("#windSpeedHeadline").text("Temperatur " + tempUnit);
+        $("#temperaturHeadline").html("Temperatur " + tempUnit);
+        getWindDirection(details.windBearing);
+
         jQuery('#temp').html(details.temperature.toFixed(1));
         jQuery('#ozone').html(details.ozone);
         jQuery('#windSpeed').html(details.windSpeed.toFixed(0));
-        jQuery('#windBearing').html(details.windBearing);
+        //jQuery('#windBearing').html(details.windBearing);
         jQuery('#humidity').html(details.humidity);
         jQuery('#pressure').html(details.humidity);
     })
@@ -253,5 +255,12 @@ function getWindSymbol(unit) {
     }
 }
 
+// justera kompassnål till aktuell vindriktning
+function getWindDirection(direction) {
+    direction = parseInt(direction);
+
+    // använder jQuery extensionen rotate för att rotera kompass-bilden
+    $("#compass").rotate(direction);
+}
 
 

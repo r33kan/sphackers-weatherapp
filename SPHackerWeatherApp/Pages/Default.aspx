@@ -16,6 +16,7 @@
 
     <!-- Add your JavaScript to the following file -->
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
+    <script src="../Scripts/jQueryRotate.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../Scripts/moment-with-locales.min.js"></script>
     <%--<script type="text/javascript" src="../Scripts/Chart.js"></script>--%>
@@ -61,7 +62,7 @@
                     <th>Ozon</th>
                     <th id="windSpeedHeadline"></th>
                     <th>Vindriktning</th>
-                    <th>Fuktighet</th>
+                    <th>Luftfuktighet</th>
                     <th>Lufttryck</th>
                   </tr>
                 </thead>
@@ -70,7 +71,7 @@
                         <td id="temp"></td>
                         <td id="ozone"></td>
                         <td id="windSpeed"></td>
-                        <td id="windBearing"></td>
+                        <td id="windBearing"><img id="compass" src="../Images/weatherIcons/Compass.svg" alt="vindriktning"/></td>
                         <td id="humidity"></td>
                         <td id="pressure"></td>
                     </tr>
