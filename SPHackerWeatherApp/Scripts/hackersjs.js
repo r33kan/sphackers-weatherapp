@@ -12,6 +12,10 @@
     var timeArray = [];
     var details = [];
 
+    // app part settings
+    var getUnit = parseInt(localStorage.getItem("unit"));
+    var getLocation = localStorage.getItem("contosoLocation");
+
     //hämta väderdata från localstorage (sparats ner när app parten körs)
     var localWeatherData = localStorage.getItem("weatherData");
     var weatherData = JSON.parse(localWeatherData);
@@ -25,45 +29,64 @@
     $("#perHour").show();
     $("#minMax").hide();
 
-        //jQuery.ajax({
-        //    url: "https://api.darksky.net/forecast/e1d9e5d4989ede70af611f5cbf8b52c9/59.345013,18.021977?callback=?&units=si",
-        //    type: 'GET',
-        //    dataType: 'jsonp'
-        //})
-        // .done(function (data) {
+    //jQuery.ajax({
+    //    url: "https://api.darksky.net/forecast/e1d9e5d4989ede70af611f5cbf8b52c9/59.345013,18.021977?callback=?&units=si",
+    //    type: 'GET',
+    //    dataType: 'jsonp'
+    //})
+    // .done(function (data) {
 
 
-        //     perHourForecast = data.hourly.data;
-        //     minMaxTemp = data.daily.data;
-        //     details = data.currently;
+    //     perHourForecast = data.hourly.data;
+    //     minMaxTemp = data.daily.data;
+    //     details = data.currently;
     // })
 
 
 
-  $("#minMaxTab").click(function() {
-            $("#minMax").show();
-            $("#details").hide();
-            $("#perHour").hide();
-    
-            console.log("I minMaxTab");
+    $("#minMaxTab").click(function () {
+        $("#minMax").show();
+        $("#details").hide();
+        $("#perHour").hide();
+
+
+        var isCelsius = (getUnit === 1) ? true : false;
+
+        console.log("I minMaxTab");
 
         var minTemp = [];
         var maxTemp = [];
 
-        for (var i = 0; i < 7; i++) {
-            time[i] = moment.unix(minMaxTemp[i].time).format("dddd");
-            console.log("time i MinMax: " + time[i]);
+
+        for (var index = 1; index <= 5; index++) {
+            time.push(moment.unix(minMaxTemp[index].time).format("dddd"));
+
+            if (isCelsius) {
+                minTemp.push(getCelsius(minMaxTemp[index].temperatureMin));
+                maxTemp.push(getCelsius(minMaxTemp[index].temperatureMax));
+            }
+            else {
+                minTemp.push(minMaxTemp[index].temperatureMin);
+                maxTemp.push(minMaxTemp[index].temperatureMax);
+            }
         }
 
-        for (var i = 0; i < 7; i++) {
-            minTemp[i] = minMaxTemp[i].temperatureMin;
-            console.log("Dag " + i + "min" + minTemp[i])
-        }
 
-        for (var i = 0; i < 7; i++) {
-            maxTemp[i] = minMaxTemp[i].temperatureMax;
-            console.log("Dag " + i + "max" + maxTemp[i])
-        }
+
+        //for (var i = 0; i < 7; i++) {
+        //    time[i] = moment.unix(minMaxTemp[i].time).format("dddd");
+        //    console.log("time i MinMax: " + time[i]);
+        //}
+
+        //for (var i = 0; i < 7; i++) {
+        //    minTemp[i] = minMaxTemp[i].temperatureMin;
+        //    console.log("Dag " + i + "min" + minTemp[i])
+        //}
+
+        //for (var i = 0; i < 7; i++) {
+        //    maxTemp[i] = minMaxTemp[i].temperatureMax;
+        //    console.log("Dag " + i + "max" + maxTemp[i])
+        //}
 
         var ctx = document.getElementById("minMaxTemp");
 
@@ -100,7 +123,8 @@
                     highlightFill: "rgba(220,220,220,0.75)",
                     highlightStroke: "rgba(220,220,220,1)",
                     showTooltip: false,
-                    }]}
+                }]
+            }
                     ,
 
             options: {
@@ -120,25 +144,45 @@
 
 
 
-    $("#perHourTab").click(function() {
+    $("#perHourTab").click(function () {
         $("#perHour").show();
         $("#minMax").hide();
         $("#details").hide();
 
-        console.log("I perHourTab");
+        var isCelsius = (getUnit === 1) ? true : false;
 
+        console.log("I perHourTab");
+        var foreCastDay = moment.unix(perHourForecast[0].time).format("dddd");
+        var index = 0;
         var perHourTemp = [];
         var time = [];
+        var timeNow = moment.unix(details.time).format("dddd");
 
-        for (var i = 0; i < 24; i++) {
-            time[i] = moment.unix(perHourForecast[i].time).format("HH");
-            console.log(time[i])
+        // hämta temperatur / timme för innevarande dygn
+        while (timeNow === foreCastDay) {
+
+            time.push(moment.unix(perHourForecast[index].time).format("HH"));
+
+            if (isCelsius) {
+                perHourTemp.push(getCelsius(perHourForecast[index].temperature));
+            }
+            else {
+                perHourTemp.push(perHourForecast[index].temperature);
+            }
+
+            foreCastDay = moment.unix(perHourForecast[index].time).format("dddd");
+            index++;
         }
 
-        for (var i = 0; i < 24; i++) {
-            perHourTemp[i] = perHourForecast[i].temperature;
-            console.log(perHourTemp[i])
-        }
+        //for (var i = 0; i < 24; i++) {
+        //    time[i] = moment.unix(perHourForecast[i].time).format("HH");
+        //    console.log(time[i])
+        //}
+
+        //for (var i = 0; i < 24; i++) {
+        //    perHourTemp[i] = perHourForecast[i].temperature;
+        //    console.log(perHourTemp[i])
+        //}
 
         var ctxPerHour = document.getElementById("perHourChart");
 
@@ -181,7 +225,7 @@
         })
     })
 
-    $("#detailsTab").click(function() {
+    $("#detailsTab").click(function () {
         $("#details").show();
         $("#perHour").hide();
         $("#minMax").hide();
@@ -197,7 +241,9 @@
     })
 })
 
-
+function getCelsius(temp) {
+    return (temp - 32) / 1.8000;
+}
 
 
 
