@@ -18,7 +18,8 @@
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../Scripts/moment-with-locales.min.js"></script>
-    <script type="text/javascript" src="../Scripts/Chart.js"></script>
+    <%--<script type="text/javascript" src="../Scripts/Chart.js"></script>--%>
+    <script src="../Scripts/Chart.min.js"></script>
     <script type="text/javascript" src="../Scripts/hackersjs.js"></script>
 
     <!-- CSS bibliotek -->
@@ -47,7 +48,7 @@
         </ul>
      </div>
     <div id="perHour">
-        <canvas "id="perHourChart" ></canvas>
+        <canvas id="perHourChart" ></canvas>
     </div>
       <div id="minMax">
            <canvas id="minMaxTemp"></canvas>

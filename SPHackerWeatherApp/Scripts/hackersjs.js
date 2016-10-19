@@ -12,21 +12,33 @@
     var timeArray = [];
     var details = [];
 
+    //hämta väderdata från localstorage (sparats ner när app parten körs)
+    var localWeatherData = localStorage.getItem("weatherData");
+    var weatherData = JSON.parse(localWeatherData);
+
+    perHourForecast = weatherData.hourly.data;
+    minMaxTemp = weatherData.daily.data;
+    details = weatherData.currently;
+
     //Defaultvy
     $("#details").hide();
     $("#perHour").show();
     $("#minMax").hide();
 
-        jQuery.ajax({
-            url: "https://api.darksky.net/forecast/e1d9e5d4989ede70af611f5cbf8b52c9/59.345013,18.021977?callback=?&units=si",
-            type: 'GET',
-            dataType: 'jsonp'
-        })
-         .done(function (data) {
-             perHourForecast = data.hourly.data;
-             minMaxTemp = data.daily.data;
-             details = data.currently;
-         })
+        //jQuery.ajax({
+        //    url: "https://api.darksky.net/forecast/e1d9e5d4989ede70af611f5cbf8b52c9/59.345013,18.021977?callback=?&units=si",
+        //    type: 'GET',
+        //    dataType: 'jsonp'
+        //})
+        // .done(function (data) {
+
+
+        //     perHourForecast = data.hourly.data;
+        //     minMaxTemp = data.daily.data;
+        //     details = data.currently;
+    // })
+
+
 
   $("#minMaxTab").click(function() {
             $("#minMax").show();
@@ -40,6 +52,7 @@
 
         for (var i = 0; i < 7; i++) {
             time[i] = moment.unix(minMaxTemp[i].time).format("dddd");
+            console.log("time i MinMax: " + time[i]);
         }
 
         for (var i = 0; i < 7; i++) {
