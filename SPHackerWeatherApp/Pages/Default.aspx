@@ -8,24 +8,18 @@
 
 <%-- The markup and script in the following Content element will be placed in the <head> of the page --%>
 <asp:Content ContentPlaceHolderID="PlaceHolderAdditionalPageHead" runat="server">
-    <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
-    <SharePoint:ScriptLink name="sp.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" />
     <meta name="WebPartPageExpansion" content="full" />
 
-
-
-    <!-- Add your JavaScript to the following file -->
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
     <script src="../Scripts/jQueryRotate.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="../Scripts/moment-with-locales.min.js"></script>
-    <%--<script type="text/javascript" src="../Scripts/Chart.js"></script>--%>
     <script src="../Scripts/Chart.min.js"></script>
     <script type="text/javascript" src="../Scripts/hackersjs.js"></script>
 
     <!-- CSS bibliotek -->
-    <link rel="Stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+
     <!-- Egen CSS -->
     <link rel="Stylesheet" type="text/css" href="../Content/App.css" />
 </asp:Content>
@@ -37,47 +31,43 @@
 
 <%-- The markup and script in the following Content element will be placed in the <body> of the page --%>
 <asp:Content ContentPlaceHolderID="PlaceHolderMain" runat="server">
-  
+
     <div class="container">
         <ul class="nav nav-tabs">
-       <%--     <li id="perHourTab"><a onclick="showPerHour()">Per timme</a></li>
-            <li id="minMaxTab"><a onclick="showMinMax()">Min- och maxtemperatur</a></li>
-            <li id="detailsTab"><a onclick="showDetails()">Detaljerad info</a></li>--%>
             <li><a id="perHourTab">Per timme</a></li>
             <li><a id="minMaxTab">Min- och maxtemperatur</a></li>
             <li><a id="detailsTab">Detaljerad info</a></li>
         </ul>
-     </div>
-    <div id="perHour" class="conatiner">
-        <canvas id="perHourChart" ></canvas>
     </div>
-      <div id="minMax" class="container">
-           <canvas id="minMaxTemp"></canvas>
-      </div>
+    <div id="perHour" class="conatiner">
+        <canvas id="perHourChart"></canvas>
+    </div>
+    <div id="minMax" class="container">
+        <canvas id="minMaxTemp"></canvas>
+    </div>
     <div id="details" class="container">
-                 <table class="table table-default table-responsive">
-                <thead>
-                  <tr>
+        <table class="table table-default table-responsive">
+            <thead>
+                <tr>
                     <th id="temperaturHeadline">Temperatur</th>
                     <th>Ozon</th>
                     <th id="windSpeedHeadline">Vindhastighet</th>
                     <th>Vindriktning</th>
                     <th>Luftfuktighet %</th>
                     <th>Lufttryck hpa</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td id="temp"></td>
-                        <td id="ozone"></td>
-                        <td id="windSpeed"></td>
-                        <td id="windBearing"><img id="compass" src="../Images/weatherIcons/Compass.svg" alt="vindriktning"/></td>
-                        <td id="humidity"></td>
-                        <td id="pressure"></td>
-                    </tr>
-                </tbody>
-                     </table>
-         
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="temp"></td>
+                    <td id="ozone"></td>
+                    <td id="windSpeed"></td>
+                    <td id="windBearing"></td>
+                    <td id="humidity"></td>
+                    <td id="pressure"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </asp:Content>

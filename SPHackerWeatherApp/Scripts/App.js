@@ -63,9 +63,10 @@ function getQueryStringParameter(urlParameterKey) {
 
     // variabler för att sköta cachning mot localstorage
     var newDate = new Date();
-    var currentTime = moment(newDate).format("YYYY-MM-dd");
+    var currentTime = moment(newDate).format("HH");
     var updateTime = localStorage.getItem("time");
-
+    console.log(currentTime);
+    console.log(updateTime);
     var body = "";
     var errorMessage = "";
     var getWeather = setLocation(getLocation);
@@ -78,6 +79,7 @@ function getQueryStringParameter(urlParameterKey) {
 
     
     if (currentTime === updateTime) {
+        console.log("Inte AJAX");
         weatherTemp = localStorage.getItem("weatherData");
         weatherObject = JSON.parse(weatherTemp);
 
@@ -98,6 +100,7 @@ function getQueryStringParameter(urlParameterKey) {
         skycons.play();
     }
     else {
+        console.log("AJAX");
         $.ajax({
             METHOD: "GET",
             dataType: "jsonp",
@@ -118,7 +121,7 @@ function getQueryStringParameter(urlParameterKey) {
                     var todayDate = moment.unix(time).format("llll");
 
                     localStorage.setItem("weatherData", JSON.stringify(weatherObject));
-                    localStorage.setItem("time", moment.unix(time).format("YYYY-MM-dd"));
+                    localStorage.setItem("time", moment.unix(time).format("HH"));
 
                     //skapa html-element för body på app part
                     body = getBody(weatherObject.currently, getUnit);

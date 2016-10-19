@@ -211,6 +211,7 @@
             details.windSpeed = details.windSpeed / 2.236936;
         }
 
+        var windDirection = translatewindBearing(details.windBearing);
         var windUnit = getWindSymbol(getUnit);
         var tempUnit = getTempSymbol(getUnit);
 
@@ -223,7 +224,7 @@
         jQuery('#temp').html(details.temperature.toFixed(1));
         jQuery('#ozone').html(details.ozone);
         jQuery('#windSpeed').html(details.windSpeed.toFixed(0));
-        //jQuery('#windBearing').html(details.windBearing);
+        jQuery('#windBearing').html(windDirection);
         jQuery('#humidity').html(details.humidity * 100);
         jQuery('#pressure').html(details.pressure);
     })
@@ -265,3 +266,39 @@ function getWindDirection(direction) {
 }
 
 
+
+function translatewindBearing(input) {
+
+    "use strict";
+
+    var value = parseInt(input);
+
+    var windBearing = "";
+
+
+
+    if (value === 0) { windBearing = "nordlig"; }
+
+    else if (value > 0 && value <= 45) { windBearing = "nord / nordost"; }
+
+    else if (value > 45 && value < 90) { windBearing = "ost / nordost"; }
+
+    else if (value > 90 && value < 180) { windBearing = "syd / sydost"; }
+
+    else if (value === 180) { windBearing = "sydlig"; }
+
+    else if (value > 180 && value < 270) { windBearing = "syd / sydväst"; }
+
+    else if (value === 270) { windBearing = "västlig"; }
+
+    else if (value > 270 && value < 360) { windBearing = "nord / nordväst"; }
+
+    else { return "vindstilla"; }
+
+
+
+    localStorage.setItem("windBearing", windBearing);
+
+    return windBearing;
+
+}
