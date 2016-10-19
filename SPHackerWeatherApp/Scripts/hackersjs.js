@@ -1,22 +1,16 @@
 ﻿$(function (jQuery) {
+
+    //hämta väderdata från localstorage (sparas ner när app parten körs)
+    var localWeatherData = localStorage.getItem("weatherData");
+    var weatherData = JSON.parse(localWeatherData);
     
-    var unit = 'si';
-    var minMaxTemp;
-    var perHourForecast;
-    var timeArray = [];
-    var details = [];
+    var minMaxTemp = weatherData.daily.data;
+    var perHourForecast = weatherData.hourly.data;
+    var details = weatherData.currently;
 
     // app part settings
     var getUnit = parseInt(localStorage.getItem("unit"));
     var getLocation = localStorage.getItem("contosoLocation");
-
-    //hämta väderdata från localstorage (sparats ner när app parten körs)
-    var localWeatherData = localStorage.getItem("weatherData");
-    var weatherData = JSON.parse(localWeatherData);
-
-    perHourForecast = weatherData.hourly.data;
-    minMaxTemp = weatherData.daily.data;
-    details = weatherData.currently;
 
     //Defaultvy
     $("#details").hide();
@@ -31,7 +25,6 @@
 
         var isCelsius = (getUnit === 1) ? true : false;
 
-        console.log("I minMaxTab");
         var time = [];
         var minTemp = [];
         var maxTemp = [];
@@ -104,7 +97,6 @@
 
         var isCelsius = (getUnit === 1) ? true : false;
 
-        console.log("I perHourTab");
         var foreCastDay = moment.unix(perHourForecast[0].time).format("dddd");
         var index = 0;
         var perHourTemp = [];
@@ -163,7 +155,6 @@
         $("#perHour").hide();
         $("#minMax").hide();
 
-        console.log("I detailsTab");
         var isCelsius = (getUnit === 1) ? true : false;
 
         if (isCelsius) {
@@ -178,9 +169,7 @@
 
         $("#windSpeedHeadline").text("Vindhastighet " + windUnit);
         $("#temperaturHeadline").html("Temperatur " + tempUnit);
-        getWindDirection(details.windBearing);
 
-        console.log(details.ozone);
         jQuery('#temp').html(details.temperature.toFixed(1));
         jQuery('#ozone').html(details.ozone);
         jQuery('#windSpeed').html(details.windSpeed.toFixed(0));
@@ -216,16 +205,6 @@ function getWindSymbol(unit) {
             return "MPH";
     }
 }
-
-// justera kompassnål till aktuell vindriktning
-function getWindDirection(direction) {
-    direction = parseInt(direction);
-
-    // använder jQuery extensionen rotate för att rotera kompass-bilden
-    $("#compass").rotate(direction);
-}
-
-
 
 function translatewindBearing(input) {
 
