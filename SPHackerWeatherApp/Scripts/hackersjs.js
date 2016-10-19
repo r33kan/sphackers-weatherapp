@@ -1,4 +1,4 @@
-﻿jQuery(document).ready(function (jQuery) {
+﻿$(function (jQuery) {
 
     var url = 'https://api.darksky.net/forecast/';
     var apiKey = 'e1d9e5d4989ede70af611f5cbf8b52c9';
