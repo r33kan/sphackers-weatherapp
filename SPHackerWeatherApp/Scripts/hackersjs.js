@@ -1,11 +1,6 @@
 ﻿$(function (jQuery) {
-
-    var url = 'https://api.darksky.net/forecast/';
-    var apiKey = 'e1d9e5d4989ede70af611f5cbf8b52c9';
+    
     var unit = 'si';
-    var lat = 59.345013;
-    var lng = 18.021977;
-    var exclude = "?exclude=hourly,minutely,alerts,flags";
     var minMaxTemp;
     var perHourForecast;
     var timeArray = [];
@@ -46,12 +41,12 @@
             time.push(moment.unix(minMaxTemp[index].time).format("dddd"));
 
             if (isCelsius) {
-                minTemp.push(getCelsius(minMaxTemp[index].temperatureMin));
-                maxTemp.push(getCelsius(minMaxTemp[index].temperatureMax));
+                minTemp.push(getCelsius(minMaxTemp[index].temperatureMin).toFixed(1));
+                maxTemp.push(getCelsius(minMaxTemp[index].temperatureMax).toFixed(1));
             }
             else {
-                minTemp.push(minMaxTemp[index].temperatureMin);
-                maxTemp.push(minMaxTemp[index].temperatureMax);
+                minTemp.push(minMaxTemp[index].temperatureMin.toFixed(1));
+                maxTemp.push(minMaxTemp[index].temperatureMax.toFixed(1));
             }
         }
 
@@ -75,8 +70,8 @@
                     data: maxTemp,
                     label: "Maxtemperatur",
                     fill: false,
-                    borderColor: "red",
-                    backgroundColor: "red",
+                    borderColor: "coral",
+                    backgroundColor: "coral",
                     pointBorderColor: "tomato",
                     pointBackgroundColor: "tomato",
                     pointBorderWidth: 1,
@@ -115,6 +110,7 @@
         var perHourTemp = [];
         var time = [];
         var timeNow = moment.unix(details.time).format("dddd");
+        var tempSymbol = getTempSymbol(getUnit);
 
         // hämta temperatur / timme för innevarande dygn
         while (timeNow === foreCastDay) {
@@ -122,10 +118,10 @@
             time.push(moment.unix(perHourForecast[index].time).format("HH"));
 
             if (isCelsius) {
-                perHourTemp.push(getCelsius(perHourForecast[index].temperature));
+                perHourTemp.push(getCelsius(perHourForecast[index].temperature).toFixed(1));
             }
             else {
-                perHourTemp.push(perHourForecast[index].temperature);
+                perHourTemp.push(perHourForecast[index].temperature.toFixed(1));
             }
 
             foreCastDay = moment.unix(perHourForecast[index].time).format("dddd");
