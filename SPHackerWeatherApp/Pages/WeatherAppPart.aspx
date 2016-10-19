@@ -49,7 +49,7 @@
 
             <%--div för vindhastighet och kompassriktning--%>
             <div id="AppPartBodyDetails">
-                <p id="windData"></p>
+                <span id="windData"></span>
                 <img id="compass" src="../Images/weatherIcons/Compass.svg" />
             </div>
             <div>

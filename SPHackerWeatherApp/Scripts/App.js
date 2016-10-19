@@ -164,7 +164,7 @@ function getBody(weatherData, getUnit) {
     }
 
     body = "<div><h1><strong> " + temperatur.toFixed(1) + "" + unitSymbol + " " + weatherSummary + "</strong></h1></div>";
-    windData = "<h2><strong>Vind: " + windSpeed.toFixed(0) + " " + windspeedSymbol + "</strong></h2>";
+    windData = "<span class='h2'><strong>Vind: " + windSpeed.toFixed(0) + " " + windspeedSymbol + "</strong></span>";
 
     $("#windData").html(windData);
 
