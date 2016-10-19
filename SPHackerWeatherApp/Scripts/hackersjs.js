@@ -204,8 +204,18 @@
         $("#minMax").hide();
 
         console.log("I detailsTab");
+        var isCelsius = (getUnit === 1) ? true : false;
 
-        jQuery('#temp').html(details.temperature);
+        if (isCelsius) {
+            details.temperature = getCelsius(details.temperature);
+        }
+
+        var windUnit = getWindSymbol(getUnit);
+        var tempUnit = getTempSymbol(getUnit);
+
+
+
+        jQuery('#temp').html(details.temperature.toFixed(1));
         jQuery('#ozone').html(details.ozone);
         jQuery('#windSpeed').html(details.windSpeed);
         jQuery('#windBearing').html(details.windBearing);
@@ -218,6 +228,28 @@ function getCelsius(temp) {
     return (temp - 32) / 1.8000;
 }
 
+function getTempSymbol(unit) {
+    unit = parseInt(unit);
+
+    switch (unit) {
+        case 1:
+            return "&deg;C";
+        default:
+            return "&deg;F";
+    }
+}
+
+function getWindSymbol(unit) {
+
+    unit = parseInt(unit);
+
+    switch (unit) {
+        case 1:
+            return "m/s";
+        default:
+            return "MPH";
+    }
+}
 
 
 
