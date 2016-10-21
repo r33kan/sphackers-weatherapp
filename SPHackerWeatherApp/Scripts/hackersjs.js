@@ -24,15 +24,12 @@ function getQueryStringParameter(urlParameterKey) {
 
     // hämta väderdata från localStorage
     var weatherData = JSON.parse(localStorage.getItem("weatherdata"));
-    console.log(weatherData);
 
     // om webbläsaren inte har kunnat läsa in väderdata från localstorage
     if (weatherData === null) {
-        console.log("AJAX");
         getWeatherData(getUnit, locationUrl);
     }
     else {
-        console.log("inte AJAX");
         showDetails(getUnit, weatherData);
         showHourly(getUnit, weatherData);
         showMinMax(getUnit, weatherData);
@@ -93,11 +90,8 @@ function getWeatherData(getUnit, locationUrl) {
         url: locationUrl,
         success: function (data) {
             weatherData = data;
-            console.log("Success");
-            console.log(data);
         },
         failure: function () {
-            console.log("failure");
             errorMessage = "Det gick inte att visa väderuppgifterna just nu. Vänligen försök senare";
             $("#errorMessage").text(errorMessage);
         },
@@ -166,7 +160,6 @@ function setLocation(location) {
             break;
         }
     }
-    console.log(position);
     return position;
 }
 
@@ -178,8 +171,6 @@ function showDetails(getUnit, weatherData) {
 
     var details = weatherData.currently;
     getUnit = parseInt(getUnit);
-
-    console.log(details);
 
     var isCelsius = (getUnit === 1) ? true : false;
     var windDirection = translatewindBearing(details.windBearing);
@@ -215,8 +206,6 @@ function showDetails(getUnit, weatherData) {
 // visa prognos med kommande 5 dagars max/min-temperatur
 function showMinMax(getUnit, weatherData) {
     "use strict";
-
-    console.log("showMinMax");
 
     var mmt = weatherData.daily.data;
     getUnit = parseInt(getUnit);
@@ -285,9 +274,6 @@ function showMinMax(getUnit, weatherData) {
 
 function showHourly(getUnit, weatherData) {
     "use strict";
-
-
-    console.log("showHourly");
 
     var phf = weatherData.hourly.data;
     getUnit = parseInt(getUnit);

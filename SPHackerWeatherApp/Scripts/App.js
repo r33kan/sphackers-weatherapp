@@ -80,10 +80,6 @@ function getQueryStringParameter(urlParameterKey) {
         return url;
     });
 
-
-    console.log(currentTime);
-    console.log(updateTime);
-
     var body = "";
     var errorMessage = "";
     var getWeather = setLocation(getLocation);
@@ -96,7 +92,6 @@ function getQueryStringParameter(urlParameterKey) {
 
     
     if (currentTime === updateTime) {
-        console.log("Inte AJAX");
 
         weatherTemp = localStorage.getItem("weatherData");
         weatherObject = JSON.parse(weatherTemp);
@@ -118,10 +113,8 @@ function getQueryStringParameter(urlParameterKey) {
 
         // starta animation för väderikoner
         skycons.play();
-        console.log(document.weatherData);
     }
     else {
-        console.log("AJAX");
         $.ajax({
             METHOD: "GET",
             dataType: "jsonp",
