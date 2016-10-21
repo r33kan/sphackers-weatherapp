@@ -20,5 +20,6 @@
     <File Path="Scripts\weatherTestData.js" Url="Scripts/weatherTestData.js" ReplaceContent="TRUE" />
     <File Path="Scripts\jQueryRotate.js" Url="Scripts/jQueryRotate.js" ReplaceContent="TRUE" />
     <File Path="Scripts\hackersjs.js" Url="Scripts/hackersjs.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\js.cookie.js" Url="Scripts/js.cookie.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

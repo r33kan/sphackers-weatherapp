@@ -12,13 +12,14 @@
 
     <%--ramverk och bibliotek--%>
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
-<%--    <script type="text/javascript" src="/_layouts/15/MicrosoftAjax.js"></script>
+    <script type="text/javascript" src="/_layouts/15/MicrosoftAjax.js"></script>
     <script type="text/javascript" src="/_layouts/15/sp.runtime.js"></script>
-    <script type="text/javascript" src="/_layouts/15/sp.js"></script>--%>
+    <script type="text/javascript" src="/_layouts/15/sp.js"></script>
     <script src="../Scripts/jQueryRotate.js"></script>
     <script src="../Scripts/skycons.js"></script>
     <script src="../Scripts/moment-with-locales.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/js.cookie.js"></script>
 
     <%--CSS & ikon-paket--%>
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />
@@ -39,7 +40,7 @@
             </div>
             <div id="AppPartHeaderDetails" class="col-sm-12 info">
                 <p id="AppPartHeaderDetailsLink">
-                    <a href="Default.aspx" target="_blank" class="btn btn-primary btn-lg">Detaljer</a>
+                    <a href="Default.aspx" target="_parent" class="btn btn-primary btn-lg">Detaljer</a>
                 </p>
             </div>
         </div>

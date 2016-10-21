@@ -31,7 +31,7 @@ var skycons = new Skycons({ "color": iconColor });
 //});
 
 (function () {
-    "user strict";
+    "use strict";
 
     $("#details").show();
     //var getWeather = setLocation(1);
@@ -44,37 +44,6 @@ var skycons = new Skycons({ "color": iconColor });
     var weatherData = JSON.parse(localWeatherData);
 
 
-    //var localWeatherCurrently = localStorage.getItem("weatherCurrently");
-    //var weatherCurrently = JSON.parse(localWeatherCurrently);
-
-    //var localWeatherPerHour = localStorage.getItem("weatherPerHour");
-    //var weatherPerHour = JSON.parse(localWeatherPerHour);
-
-    //var localWeatherForecast = localStorage.getItem("weatherForecast");
-    //var weatherForecast = JSON.parse(localWeatherForecast);
-
-       
-    
-    // $.ajax({
-    //     METHOD: "GET",
-    //     dataType: "jsonp",
-    //     crossDomain: true,
-    //     url: getWeather,
-    //     success: function (data) {
-    //         weatherTemp = data;
-    //     },
-    //     failure: error,
-    //     complete: function () {
-
-    //         if (errorMessage === "") {
-    //             weatherData = weatherTemp;
-    //             showTempChart();
-    //         }
-    //         else {
-    //             $("#response").text(errorMessage);
-    //         }
-    //     }
-    // });
 
     showTempChart(weatherData);
     forecastTempChart(weatherData.daily.data);

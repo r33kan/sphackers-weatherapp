@@ -5,6 +5,7 @@ var secretKey = "629b0a384ddac75d1c1fa827e8846375/";
 var iconColor = "black";
 var skycons = new Skycons({ "color": iconColor });
 
+
 //kontrollera om rutan har ett Responsive attribut, skapa ett om false
 window.Responsive = window.Responsive || {};
 
@@ -57,16 +58,27 @@ function getQueryStringParameter(urlParameterKey) {
 
     var getUnit = getQueryStringParameter("contosoDegrees");
     localStorage.setItem("unit", getUnit);
+    
 
     var getTheme = getQueryStringParameter("contosoTheme");
     localStorage.setItem("theme", getTheme);
 
+    // cookies ifall localstorage inte vill fungera i webbläsaren
+    Cookies.remove("unit");
+    Cookies.set("unit", getUnit);
+    
+    Cookies.remove("location");
+    Cookies.set("location", getLocation);
+ 
     // variabler för att sköta cachning mot localstorage
     var newDate = new Date();
     var currentTime = moment(newDate).format("HH");
     var updateTime = localStorage.getItem("time");
+    var url = "~appWebUrl/Pages/Default.aspx?{StandardTokens}&amp;contosoLocation=_getLocation_&amp;contosoDegrees=_getUnit_";
+
     console.log(currentTime);
     console.log(updateTime);
+
     var body = "";
     var errorMessage = "";
     var getWeather = setLocation(getLocation);
@@ -80,10 +92,15 @@ function getQueryStringParameter(urlParameterKey) {
     
     if (currentTime === updateTime) {
         console.log("Inte AJAX");
+
         weatherTemp = localStorage.getItem("weatherData");
         weatherObject = JSON.parse(weatherTemp);
 
-        var time = new Date(weatherObject.currently.time);
+        //skapa cookies om localStorage inte vill fungera
+        Cookies.remove("weatherData");
+        Cookies.set("weatherData", weatherTemp);
+
+        var time = weatherObject.currently.time;
         var todayDate = moment.unix(time).format("llll");
 
         //skapa html-element för body på app part
@@ -95,9 +112,12 @@ function getQueryStringParameter(urlParameterKey) {
         $("#AppPartHeaderDateDisplay").text(todayDate);
         $("#AppPartBodySummary").html(body);
 
+        // ställ in kompassnålen efter vindriktningen
         getWindDirection(weatherObject.currently.windBearing);
+
         // starta animation för väderikoner
         skycons.play();
+        console.log(document.weatherData);
     }
     else {
         console.log("AJAX");
@@ -117,11 +137,17 @@ function getQueryStringParameter(urlParameterKey) {
                 if (errorMessage === "") {
                     weatherObject = weatherTemp;
 
-                    var time = new Date(weatherObject.currently.time);
+                    var weatherDataString = JSON.stringify(weatherObject);
+                    var time = weatherObject.currently.time;
                     var todayDate = moment.unix(time).format("llll");
 
-                    localStorage.setItem("weatherData", JSON.stringify(weatherObject));
+                    localStorage.setItem("weatherData", JSON.stringify(weatherTemp));
                     localStorage.setItem("time", moment.unix(time).format("HH"));
+
+                    // cookies om webbläsare inte kan använda sig av localstorage
+                    Cookies.remove("weatherData");
+                    Cookies.set("weatherData", weatherDataString);
+                   
 
                     //skapa html-element för body på app part
                     body = getBody(weatherObject.currently, getUnit);
@@ -140,7 +166,7 @@ function getQueryStringParameter(urlParameterKey) {
                     $("#response").text(errorMessage);
                 }
             }
-        });
+        });       
     }
     // starta responsive part
     Responsive.Part.init();

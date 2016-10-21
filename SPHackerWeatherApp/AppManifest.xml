@@ -3,12 +3,12 @@
 <App xmlns="http://schemas.microsoft.com/sharepoint/2012/app/manifest"
      Name="SPHackerWeatherApp"
      ProductID="{ec521b1a-d4af-4e23-b4a2-44fe6ae5e773}"
-     Version="1.0.0.0"
+     Version="1.0.0.25"
      SharePointMinVersion="16.0.0.0"
 >
   <Properties>
     <Title>SPHackerWeatherApp</Title>
-    <StartPage>~appWebUrl/Pages/WeatherAppPart.aspx?{StandardTokens}</StartPage>
+    <StartPage>~appWebUrl/Pages/Default.aspx?{StandardTokens}</StartPage>
   </Properties>
 
   <AppPrincipal>

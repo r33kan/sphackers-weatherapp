@@ -1,44 +1,46 @@
-﻿//Om det är första gången sidan laddas
-var firstLoad = true;
+﻿(function () {
+    "use strict";
 
-//Väntar på att sidan har laddats klart
-$(function () {
+    console.log("Main");
+
     //hämta väderdata från localstorage (sparas ner när app parten körs)
     var localWeatherData = localStorage.getItem("weatherData");
     var weatherData = JSON.parse(localWeatherData);
-
-    var minMaxTemp = weatherData.daily.data;
-    var perHourForecast = weatherData.hourly.data;
-    var details = weatherData.currently;
+    var location = "";
 
     // app part settings
     var getUnit = parseInt(localStorage.getItem("unit"));
-    var getLocation = localStorage.getItem("contosoLocation");
+
+    // test för att försöka lösa localStorage problem i Edge/IE/Safari
+    if (weatherData === null) {
+        console.log("dags att hämta kaka");
+        //getUnit = 
+    }
+
+    // När sidan har laddats visa detaljerna
+    showDetails(getUnit, weatherData);
 
     $("#minMaxTab").click(function () {
-        showMinMax(getUnit,minMaxTemp);
+        showMinMax(getUnit, weatherData);
     });
 
     $("#perHourTab").click(function () {
-        showHourly(getUnit,perHourForecast,details);
+        showHourly(getUnit, weatherData);
     });
 
     $("#detailsTab").click(function () {
-        showDetails(getUnit, details);
+        showDetails(getUnit, weatherData);
     });
-    
-    //När sidan har laddats visa detaljerna
-    showDetails(getUnit, details);
-
-    //sätt kontrollvariabeln till false
-    firstLoad = false;
-});
+}());
 
 //Appens logik
+
+
 function getCelsius(temp) {
     var celsius = temp;
     return (celsius - 32) / 1.8000;
 }
+
 
 function getTempSymbol(unit) {
     unit = parseInt(unit);
@@ -62,44 +64,67 @@ function getWindSymbol(unit) {
     }
 }
 
-function showDetails(getUnit, details) {
-    $("#details").show();
+// visa detaljerna
+function showDetails(getUnit, weatherData) {
+    "use strict";
+
+    console.log("showDetails");
     $("#perHour").hide();
     $("#minMax").hide();
 
+    var details = weatherData.currently;
+
+    console.log(details);
+
     var isCelsius = (getUnit === 1) ? true : false;
-
-    if (isCelsius && firstLoad) {
-        details.temperature = getCelsius(details.temperature);
-        details.windSpeed = details.windSpeed / 2.236936;
-    }
-
     var windDirection = translatewindBearing(details.windBearing);
     var windUnit = getWindSymbol(getUnit);
+    var windSpeed = "";
+    var temperatur = "";
     var tempUnit = getTempSymbol(getUnit);
+
+    if (isCelsius) {
+        temperatur = getCelsius(details.temperature);
+        windSpeed = details.windSpeed / 2.236936;
+    }
+    else {
+        temperatur = details.temperature;
+        windSpeed = details.windSpeed;
+    }
 
     $("#windSpeedHeadline").text("Vindhastighet " + windUnit);
     $("#temperaturHeadline").html("Temperatur " + tempUnit);
 
-    $('#temp').html(details.temperature.toFixed(1));
-    $('#ozone').html(details.ozone);
-    $('#windSpeed').html(details.windSpeed.toFixed(0));
+    $('#temp').html(temperatur.toFixed(1));
+    $('#ozone').text(details.ozone);
+    $('#windSpeed').html(windSpeed.toFixed(0));
     $('#windBearing').html(windDirection);
     $('#humidity').html(details.humidity * 100);
     $('#pressure').html(details.pressure);
+
+    $("#details").show();
+
 }
 
-function showMinMax(getUnit, mmt) {
-    $("#minMax").show();
+
+// visa prognos med kommande 5 dagars max/min-temperatur
+function showMinMax(getUnit, weatherData) {
+    "use strict";
+
+    // börja med att gömma övriga HTML-element
     $("#details").hide();
     $("#perHour").hide();
 
+    console.log("showMinMax");
+
+    var mmt = weatherData.daily.data;
+
     var isCelsius = (getUnit === 1) ? true : false;
-
-    var time = [];
-    var minTemp = [];
     var maxTemp = [];
+    var minTemp = [];
+    var time = [];
 
+    // börja på 1 = imorgon och fortsätt 5 dagar fram
     for (var index = 1; index <= 5; index++) {
         time.push(moment.unix(mmt[index].time).format("dddd"));
 
@@ -154,20 +179,27 @@ function showMinMax(getUnit, mmt) {
             }
         }
     });
+    // avsluta med att visa aktuellt HTML-element
+    $("#minMax").show();
 }
 
-function showHourly(getUnit, phf, details) {
-    $("#perHour").show();
+function showHourly(getUnit, weatherData) {
+    "use strict";
+
     $("#minMax").hide();
     $("#details").hide();
 
-    var isCelsius = (getUnit === 1) ? true : false;
+    console.log("showHourly");
 
-    var foreCastDay = moment.unix(phf[0].time).format("dddd");
+    var phf = weatherData.hourly.data;
+
+    console.log(phf);
+    var foreCastDay = moment.unix(phf[0].time).format("dddd"); // används med timeNow för att veta när man loopat igenom innevarande dygn
+    var isCelsius = (getUnit === 1) ? true : false;
     var index = 0;
     var perHourTemp = [];
     var time = [];
-    var timeNow = moment.unix(details.time).format("dddd");
+    var timeNow = moment.unix(weatherData.currently.time).format("dddd"); // kontrollera vilken dag det är nu
     var tempSymbol = getTempSymbol(getUnit);
 
     // hämta temperatur / timme för innevarande dygn
@@ -175,12 +207,7 @@ function showHourly(getUnit, phf, details) {
 
         time.push(moment.unix(phf[index].time).format("HH"));
 
-        if (isCelsius) {
-            perHourTemp.push(getCelsius(phf[index].temperature).toFixed(1));
-        }
-        else {
-            perHourTemp.push(phf[index].temperature.toFixed(1));
-        }
+        perHourTemp.push(isCelsius ? getCelsius(phf[index].temperature).toFixed(1) : phf[index].temperature.toFixed(1));
 
         foreCastDay = moment.unix(phf[index].time).format("dddd");
         index++;
@@ -214,8 +241,13 @@ function showHourly(getUnit, phf, details) {
             }
         }
     });
+
+    $("#perHour").show();
+
+
 }
 
+// översätt gradantalet till vindriktning
 function translatewindBearing(input) {
     "use strict";
 
@@ -233,7 +265,15 @@ function translatewindBearing(input) {
     else if (value > 270 && value < 360) { windBearing = "nord / nordväst"; }
     else { return "vindstilla"; }
 
-    localStorage.setItem("windBearing", windBearing);
-
     return windBearing;
+}
+
+function getQueryStringParameter(urlParameterKey) {
+    var params = document.URL.split('?')[1].split('&');
+    var strParams = '';
+    for (var i = 0; i < params.length; i = i + 1) {
+        var singleParam = params[i].split('=');
+        if (singleParam[0] == urlParameterKey)
+            return decodeURIComponent(singleParam[1]);
+    }
 }
