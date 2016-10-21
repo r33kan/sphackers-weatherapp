@@ -1,7 +1,6 @@
-﻿//Mattias key
-var secretKey = "629b0a384ddac75d1c1fa827e8846375/";
-//Johans key
-//var secretKey = "1d2a1962f482ae789c15b56b59b526d7";
+﻿//Dark sky key
+var secretKey = "0/";
+
 var iconColor = "black";
 var skycons = new Skycons({ "color": iconColor });
 
@@ -74,7 +73,13 @@ function getQueryStringParameter(urlParameterKey) {
     var newDate = new Date();
     var currentTime = moment(newDate).format("HH");
     var updateTime = localStorage.getItem("time");
-    var url = "~appWebUrl/Pages/Default.aspx?{StandardTokens}&amp;contosoLocation=_getLocation_&amp;contosoDegrees=_getUnit_";
+    // <a  href="Default.aspx" target="_parent" class="btn btn-primary btn-lg">Detaljer</a>
+
+    var url = "Default.aspx?&location=" + getLocation + "&unit=" + getUnit + "";
+    $("#detailsLink").attr("href", function () {
+        return url;
+    });
+
 
     console.log(currentTime);
     console.log(updateTime);
@@ -95,10 +100,6 @@ function getQueryStringParameter(urlParameterKey) {
 
         weatherTemp = localStorage.getItem("weatherData");
         weatherObject = JSON.parse(weatherTemp);
-
-        //skapa cookies om localStorage inte vill fungera
-        Cookies.remove("weatherData");
-        Cookies.set("weatherData", weatherTemp);
 
         var time = weatherObject.currently.time;
         var todayDate = moment.unix(time).format("llll");

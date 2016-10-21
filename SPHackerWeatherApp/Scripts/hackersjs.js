@@ -1,37 +1,64 @@
-﻿(function () {
+﻿//Dark sky key
+var secretKey = "0/";
+
+function getQueryStringParameter(urlParameterKey) {
+    var params = document.URL.split('?')[1].split('&');
+    var strParams = '';
+    for (var i = 0; i < params.length; i = i + 1) {
+        var singleParam = params[i].split('=');
+        if (singleParam[0] == urlParameterKey)
+            return decodeURIComponent(singleParam[1]);
+    }
+}
+
+(function () {
     "use strict";
 
-    console.log("Main");
+    $("#perHour").hide();
+    $("#minMax").hide();
+    $("#details").hide();
 
-    //hämta väderdata från localstorage (sparas ner när app parten körs)
-    var localWeatherData = localStorage.getItem("weatherData");
-    var weatherData = JSON.parse(localWeatherData);
-    var location = "";
+    var location = getQueryStringParameter("location");
+    var locationUrl = setLocation(location);
+    var getUnit = getQueryStringParameter("unit");
 
-    // app part settings
-    var getUnit = parseInt(localStorage.getItem("unit"));
+    // hämta väderdata från localStorage
+    var weatherData = JSON.parse(localStorage.getItem("weatherdata"));
+    console.log(weatherData);
 
-    // test för att försöka lösa localStorage problem i Edge/IE/Safari
+    // om webbläsaren inte har kunnat läsa in väderdata från localstorage
     if (weatherData === null) {
-        console.log("dags att hämta kaka");
-        //getUnit = 
+        console.log("AJAX");
+        getWeatherData(getUnit, locationUrl);
+    }
+    else {
+        console.log("inte AJAX");
+        showDetails(getUnit, weatherData);
+        showHourly(getUnit, weatherData);
+        showMinMax(getUnit, weatherData);
     }
 
-    // När sidan har laddats visa detaljerna
-    showDetails(getUnit, weatherData);
-
-    $("#minMaxTab").click(function () {
-        showMinMax(getUnit, weatherData);
-    });
-
-    $("#perHourTab").click(function () {
-        showHourly(getUnit, weatherData);
-    });
-
-    $("#detailsTab").click(function () {
-        showDetails(getUnit, weatherData);
-    });
+    // När all data laddats in, visa detaljerna
+    $("#details").show();
 }());
+
+$("#minMaxTab").click(function () {
+    $("#perHour").hide();
+    $("#minMax").show();
+    $("#details").hide();
+});
+
+$("#perHourTab").click(function () {
+    $("#perHour").show();
+    $("#minMax").hide();
+    $("#details").hide();
+});
+
+$("#detailsTab").click(function () {
+    $("#perHour").hide();
+    $("#minMax").hide();
+    $("#details").show();
+});
 
 //Appens logik
 
@@ -53,6 +80,41 @@ function getTempSymbol(unit) {
     }
 }
 
+
+function getWeatherData(getUnit, locationUrl) {
+
+    var errorMessage = "";
+    var weatherData = "";
+
+    $.ajax({
+        METHOD: "GET",
+        dataType: "jsonp",
+        crossDomain: true,
+        url: locationUrl,
+        success: function (data) {
+            weatherData = data;
+            console.log("Success");
+            console.log(data);
+        },
+        failure: function () {
+            console.log("failure");
+            errorMessage = "Det gick inte att visa väderuppgifterna just nu. Vänligen försök senare";
+            $("#errorMessage").text(errorMessage);
+        },
+        complete: function (weatherTemp) {
+            if (errorMessage === "") {
+                // visa detaljer
+                showDetails(getUnit, weatherData);
+                // visa prognos med min/max temperatur
+                showMinMax(getUnit, weatherData);
+                // visa temperatur / timme för innevarande dygn
+                showHourly(getUnit, weatherData);
+            }
+        }
+    });
+}
+
+
 function getWindSymbol(unit) {
     unit = parseInt(unit);
 
@@ -64,15 +126,58 @@ function getWindSymbol(unit) {
     }
 }
 
+
+function setLocation(location) {
+
+
+
+    var city = {
+        Stockholm: {
+            longitude: "18.00",
+            latitude: "59.00"
+        },
+        Gothemburg: {
+            longitude: "11.97",
+            latitude: "57.7"
+        },
+        Malmo: {
+            longitude: "13",
+            latitude: "55.6"
+        }
+    };
+    var locationInt = parseInt(location);
+
+    var forecastURL = "https://api.darksky.net/forecast/" + secretKey;
+    var position = "";
+    switch (locationInt) {
+        case 1: {
+            position = forecastURL + city.Stockholm.latitude + "," + city.Stockholm.longitude;
+            $("#cityLocation").text("Stockholm");
+            break;
+        }
+        case 2: {
+            position = forecastURL + city.Gothemburg.latitude + "," + city.Gothemburg.longitude;
+            $("#cityLocation").text("Göteborg");
+            break;
+        }
+        case 3: {
+            position = forecastURL + city.Malmo.latitude + "," + city.Malmo.longitude;
+            $("#cityLocation").text("Malmö");
+            break;
+        }
+    }
+    console.log(position);
+    return position;
+}
+
+
 // visa detaljerna
 function showDetails(getUnit, weatherData) {
     "use strict";
 
-    console.log("showDetails");
-    $("#perHour").hide();
-    $("#minMax").hide();
 
     var details = weatherData.currently;
+    getUnit = parseInt(getUnit);
 
     console.log(details);
 
@@ -111,13 +216,10 @@ function showDetails(getUnit, weatherData) {
 function showMinMax(getUnit, weatherData) {
     "use strict";
 
-    // börja med att gömma övriga HTML-element
-    $("#details").hide();
-    $("#perHour").hide();
-
     console.log("showMinMax");
 
     var mmt = weatherData.daily.data;
+    getUnit = parseInt(getUnit);
 
     var isCelsius = (getUnit === 1) ? true : false;
     var maxTemp = [];
@@ -179,21 +281,17 @@ function showMinMax(getUnit, weatherData) {
             }
         }
     });
-    // avsluta med att visa aktuellt HTML-element
-    $("#minMax").show();
 }
 
 function showHourly(getUnit, weatherData) {
     "use strict";
 
-    $("#minMax").hide();
-    $("#details").hide();
 
     console.log("showHourly");
 
     var phf = weatherData.hourly.data;
+    getUnit = parseInt(getUnit);
 
-    console.log(phf);
     var foreCastDay = moment.unix(phf[0].time).format("dddd"); // används med timeNow för att veta när man loopat igenom innevarande dygn
     var isCelsius = (getUnit === 1) ? true : false;
     var index = 0;
@@ -241,10 +339,6 @@ function showHourly(getUnit, weatherData) {
             }
         }
     });
-
-    $("#perHour").show();
-
-
 }
 
 // översätt gradantalet till vindriktning
@@ -268,12 +362,3 @@ function translatewindBearing(input) {
     return windBearing;
 }
 
-function getQueryStringParameter(urlParameterKey) {
-    var params = document.URL.split('?')[1].split('&');
-    var strParams = '';
-    for (var i = 0; i < params.length; i = i + 1) {
-        var singleParam = params[i].split('=');
-        if (singleParam[0] == urlParameterKey)
-            return decodeURIComponent(singleParam[1]);
-    }
-}

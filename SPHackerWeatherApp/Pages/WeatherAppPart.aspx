@@ -40,7 +40,7 @@
             </div>
             <div id="AppPartHeaderDetails" class="col-sm-12 info">
                 <p id="AppPartHeaderDetailsLink">
-                    <a href="Default.aspx" target="_parent" class="btn btn-primary btn-lg">Detaljer</a>
+                    <a id="detailsLink" href="Default.aspx" target="_parent" class="btn btn-primary btn-lg">Detaljer</a>
                 </p>
             </div>
         </div>

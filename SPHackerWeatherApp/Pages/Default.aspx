@@ -64,6 +64,7 @@
         </table>
         <div id="listDetails"></div>
     </div>
+    <div id="errorMessage"></div>
     <script type="text/javascript" src="../Scripts/hackersjs.js"></script>
 
 </asp:Content>
