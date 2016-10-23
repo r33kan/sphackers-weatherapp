@@ -77,7 +77,7 @@ function getTempSymbol(unit) {
     }
 }
 
-
+// anropa dark sky om det inte finns väderdata sparad i localhost
 function getWeatherData(getUnit, locationUrl) {
 
     var errorMessage = "";
